@@ -43,7 +43,7 @@
             "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
             "{{ if gt .Behind 0 }}#B388FF{{ end }}"
           ],
-          "leading_diamond": " \ue0c7",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "branch_max_length": 25,
             "fetch_stash_count": true,
@@ -82,22 +82,23 @@
         {
           "background": "#42E66C",
           "foreground": "#29315A",
-          "leading_diamond": " \ue0c7",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "fetch_version": true
           },
           "style": "diamond",
-          "template": "\ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
           "trailing_diamond": "\ue0c6",
           "type": "node"
         },
         {
           "type": "angular",
-          "style": "powerline",
-          "powerline_symbol": "",
+          "style": "diamond",
+          "leading_diamond": "\ue0c7",
           "background": "#B52E31",
           "foreground": "#29315A",
-          "template": " \udb81\udeb2 {{ .Full }} "
+          "template": " \udb81\udeb2 {{ .Full }} ",
+          "trailing_diamond": "\ue0c6"
         },
         {
           "background": "#E64747",
