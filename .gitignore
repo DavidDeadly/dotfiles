@@ -1,5 +1,5 @@
 # Ignore all files and folders
-
+*
 
 # Except for the "kitty", "nvim", and "tmux" folders
 !.gitginore
