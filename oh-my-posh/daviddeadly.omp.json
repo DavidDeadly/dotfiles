@@ -127,12 +127,12 @@
         {
           "background": "blue",
           "foreground": "#29315A",
-          "leading_diamond": " \ue0c7",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "fetch_version": true
           },
           "style": "diamond",
-          "template": "\udb82\udcb1 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "template": " \udb82\udcb1 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
           "trailing_diamond": "\ue0c6",
           "type": "lua"
         },
