@@ -25,7 +25,7 @@
         {
           "background": "#3EC669",
           "foreground": "#29315A",
-          "leading_diamond": "\ue0c7 ",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "style": "folder"
           },
@@ -156,7 +156,7 @@
             "{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
             "{{if eq \"Full\" .State.String}}#4caf50{{end}}"
           ],
-          "leading_diamond": "\ue0c7 ",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "charged_icon": "\udb80\udc79 ",
             "charging_icon": "\udb85\udfe0 ",
@@ -170,7 +170,7 @@
         {
           "background": "lightMagenta",
           "foreground": "#29315A",
-          "leading_diamond": "\ue0c7 ",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "time_format": "15:04"
           },
