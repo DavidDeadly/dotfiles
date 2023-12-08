@@ -13,12 +13,19 @@
 
   // positions generated based on config.ctl //
 
-  "modules-left": ["custom/padd","custom/l_end","hyprland/workspaces","hyprland/window","custom/r_end","custom/l_end","cpu","memory","temperature","custom/r_end","custom/padd"],
+  "modules-left": ["custom/padd","custom/l_end","user", "hyprland/workspaces","hyprland/window","custom/r_end","custom/l_end","cpu","memory","temperature","custom/r_end","custom/padd"],
   "modules-center": ["custom/padd","custom/l_end","clock","custom/r_end"],
-  "modules-right": ["custom/padd","custom/l_end","battery","pulseaudio","pulseaudio#microphone","custom/updates","custom/r_end","custom/l_end","tray","custom/r_end","custom/l_end","custom/power","custom/r_end","custom/padd"],
-
+  "modules-right": ["custom/padd","custom/l_end","pulseaudio","pulseaudio#microphone","battery","custom/updates","custom/r_end","custom/l_end","tray","custom/r_end","custom/l_end","network","custom/r_end","custom/l_end","custom/power","custom/r_end","custom/padd"],
 
   // sourced from modules based on config.ctl //
+  "user": {
+    "format": " 󰅭 {work_H}:{work_M} ",
+    "interval": 60,
+    "height": 30,
+    "width": 30,
+    "icon": true,
+    "open-on-click": true
+  },
 
   "cpu": {
     "interval": 10,
@@ -39,8 +46,8 @@
   "temperature": {
     // "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-    // "critical-threshold": 80,
-    // "format-critical": "{temperatureC}°C ",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C ",
     "format": "{temperatureC}°C "
   },
 
@@ -51,24 +58,34 @@
   },
 
   "hyprland/workspaces": {
+    "format": "{icon} <sub>{name}</sub>",
     "disable-scroll": true,
     "all-outputs": true,
     "on-click": "activate",
-    "persistent_workspaces": {}
+    "persistent_workspaces": {
+      "Shell": ["eDP-1"],
+      "Web": ["HDMI-A-1"],
+    },
+    "format-icons": {
+      "Shell": "",
+      "Web": "",
+      "default": "󰎔",
+      "urgent": "󰝧"
+    }
   },
 
   "hyprland/window": {
     "format": "   {}",
     "separate-outputs": true,
     "rewrite": {
-      "vivek@ArchVivek:(.*)": "$1 ",
-      "(.*) — Mozilla Firefox": "$1 󰈹",
-      "(.*)Mozilla Firefox": "Firefox 󰈹",
+      "(.*)nvim": "$1 ",
+      "(.*) - Vivaldi": "$1 ",
+      "(.*)Thunar": "$1 󰉋",
+      "(.*)Spotify": "Spotify 󰓇",
+      "(.*)Steam": "Steam 󰓓",
+      "(.*)daviddeadly@davarch:(.*)": "$1 ",
       "(.*) - Visual Studio Code": "$1 󰨞",
       "(.*)Visual Studio Code": "Code 󰨞",
-      "(.*) — Dolphin": "$1 󰉋",
-      "(.*)Spotify": "Spotify 󰓇",
-      "(.*)Steam": "Steam 󰓓"
     }
   },
 
@@ -76,7 +93,7 @@
     "states": {
       "good": 95,
       "warning": 30,
-      "critical": 20
+      "critical": 15
     },
     "format": "{icon}  {capacity}%",
     "format-charging": "  {capacity}%",
@@ -86,8 +103,8 @@
   },
 
   "pulseaudio": {
-    "format": "{icon}  {volume}",
-    "format-muted": "婢",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
     "on-click": "pavucontrol -t 3",
     "on-click-middle": "~/.config/hypr/scripts/volumecontrol.sh -o m",
     "on-scroll-up": "~/.config/hypr/scripts/volumecontrol.sh -o i",
@@ -106,17 +123,21 @@
   },
 
   "pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": "",
+    "format": " {format_source} ",
+    "format-source": "",
     "format-source-muted": "",
     "on-click": "pavucontrol -t 4",
-    "on-click-middle": "~/.config/hypr/scripts/volumecontrol.sh -i m",
-    "on-scroll-up": "~/.config/hypr/scripts/volumecontrol.sh -i i",
-    "on-scroll-down": "~/.config/hypr/scripts/volumecontrol.sh -i d",
     "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
     "scroll-step": 5
   },
 
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀",
+    "format-linked": "{ifname} (No IP) 󰩟",
+    "format-disconnected": " Disconnected",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+	},
 
   "tray": {
     "icon-size": 20,
@@ -125,12 +146,11 @@
 
   "custom/power": {
     "format": "{}",
-    "exec": "echo ; echo  logout",
-    "on-click": "hyprctl dispatch exit 0",
+    "exec": "echo ; echo  power menu",
+    "on-click": "~/.config/hypr/scripts/wlogout_launcher.sh",
     "interval" : 86400, // once every day
     "tooltip": true
   },
-
 
   // modules for padding //
 

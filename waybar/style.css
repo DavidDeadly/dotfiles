@@ -56,6 +56,8 @@ window#waybar {
 #custom-sr_end,
 #custom-rl_end,
 #custom-rr_end,
+#network,
+#user,
 #tray {
   color: @main-color;
   background: #191724;
@@ -141,6 +143,14 @@ tooltip {
   padding-right: 3px;
   animation: gradient_f 20s ease-in infinite;
   transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.persistent {
+  color: lightgreen;
+}
+
+#workspaces button.urgent {
+  color: #dc0000;
 }
 
 #workspaces,
@@ -230,8 +240,26 @@ tooltip {
   color: #6bb0d9;
 }
 
+#battery.warning:not(.charging) {
+  color: #ffcc00;
+}
+
+#battery.critical:not(.charging) {
+  background: rgba(220, 0, 0, .6);
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+}
+
 #custom-power {
   color: #f5a500;
+}
+
+#network {
+    color: #1ecbe1;
 }
 
 #custom-r_end {
@@ -268,4 +296,11 @@ tooltip {
   border-radius: 8px 0px 0px 8px;
   margin-left: 9px;
   padding-left: 3px;
+}
+
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
