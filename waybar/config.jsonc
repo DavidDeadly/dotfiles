@@ -131,9 +131,6 @@
     "format": "{icon} {volume}%",
     "format-muted": "󰝟",
     "on-click": "pavucontrol -t 3",
-    "on-click-middle": "~/.config/hypr/scripts/volumecontrol.sh -o m",
-    "on-scroll-up": "~/.config/hypr/scripts/volumecontrol.sh -o i",
-    "on-scroll-down": "~/.config/hypr/scripts/volumecontrol.sh -o d",
     "tooltip-format": "{icon} {desc} // {volume}%",
     "scroll-step": 5,
     "format-icons": {
