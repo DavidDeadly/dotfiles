@@ -1,3 +1,8 @@
+@define-color bar-bg rgba(21, 18, 27, 0.4);
+
+@define-color groups-bg #191724;
+@define-color center-bg #313244;
+
 * {
   border: none;
   border-radius: 0px;
@@ -6,8 +11,6 @@
   font-size: 13px;
   min-height: 10px;
 }
-
-@define-color bar-bg rgba(183, 44, 36, 0.8);
 
 @define-color main-color #4e9dc2;
 @define-color main-bg #11111b;
@@ -25,47 +28,54 @@
 @define-color wb-hvr-color #313244;
 
 window#waybar {
-  background: rgba(21, 18, 27, 0);
+  background: @bar-bg;
   color: #ebbcba;
 }
 
+.modules-left,
+.modules-right {
+  margin-left: 22px;
+  margin-right: 22px;
+}
+
+/* basic styles for groups */
+.modules-center,
+#hyprland,
+#hardware,
+#sub-sound-bat {
+  background: @groups-bg;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border-radius: 22px;
+}
+
+.modules-center {
+  background-color: @center-bg;
+  border-radius: 0px 22px 0px;
+}
+
+/* basic styles for module */
 #cpu,
 #memory,
-#battery,
 #temperature,
+#battery,
 #clock,
-#custom-weather.severe,
-#custom-weather.sunnyDay,
-#custom-weather.clearNight,
-#custom-weather.cloudyFoggyDay, 
-#custom-weather.cloudyFoggyNight,
-#custom-weather.rainyDay, 
-#custom-weather.rainyNight,
-#custom-weather.showyIcyDay, 
-#custom-weather.snowyIcyNight,
 #workspaces,
 #window,
-#taskbar,
 #bluetooth,
 #pulseaudio,
 #custom-updates,
 #custom-power,
-#custom-l_end,
-#custom-r_end,
-#custom-sl_end,
-#custom-sr_end,
-#custom-rl_end,
-#custom-rr_end,
 #network,
 #user,
+#submap,
 #tray {
   color: @main-color;
-  background: #191724;
   opacity: 1;
   margin: 4px 0px 4px 0px;
   padding-left: 4px;
   padding-right: 4px;
-  border: 0px solid #181825;
 }
 
 tooltip {
@@ -111,94 +121,13 @@ tooltip {
   transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-#taskbar button {
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0px;
-  border-radius: 9px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
-  color: @wb-color;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button.active {
-  background: @wb-act-bg;
-  color: @wb-act-color;
-  margin-left: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 3px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button:hover {
-  background: @wb-hvr-bg;
-  color: @wb-hvr-color;
-  padding-left: 3px;
-  padding-right: 3px;
-  animation: gradient_f 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
 #workspaces button.persistent {
   color: lightgreen;
 }
 
 #workspaces button.urgent {
-  color: #dc0000;
-}
-
-#workspaces,
-#taskbar {
-  padding: 0px;
-}
-
-#clock {
-  color: #f6c177;
-}
-
-#custom-weather.severe {
-  color: #eb937d;
-}
-
-#custom-weather.sunnyDay {
-  color: #dc2430;
-}
-
-#custom-weather.clearNight {
-  color: #516395;
-}
-
-#custom-weather.cloudyFoggyDay, #custom-weather.cloudyFoggyNight {
-  color: #06beb6;
-}
-
-#custom-weather.rainyDay, #custom-weather.rainyNight {
-  color: #02aab0;
-}
-
-#custom-weather.showyIcyDay, #custom-weather.snowyIcyNight {
-  color: #eb3349;
-}
-
-#custom-weather.default {
-  color: #dbd9d8;
-}
-
-#workspaces {
-  background: #191724;
-}
-
-#workspaces button {
-}
-
-#workspaces button.active {
-  color: #ebbcba;
+  color: #ffffff;
+  background-color: #dc0000;
 }
 
 #workspaces button.focused {
@@ -206,26 +135,16 @@ tooltip {
   background: #191724;
 }
 
-#workspaces button.urgent {
-  color: #ffffff;
-  background: #191724;
+#clock {
+  color: #f6c177;
 }
 
-#workspaces button:hover {
-  background: #191724;
-  color: #ebbcba;
-}
-
-#cpu {
-  color: #ff671f;
+#workspaces {
+  padding: 0px;
 }
 
 #memory {
   color: #ffffff;
-}
-
-#temperature {
-  color: #97f993;
 }
 
 #temperature.critical {
@@ -236,8 +155,20 @@ tooltip {
   color: #eb2089;
 }
 
-#battery {
-  color: #6bb0d9;
+#custom-power {
+  color: #f5a500;
+}
+
+#network {
+    color: #1ecbe1;
+}
+
+#cpu {
+  color: #ff671f;
+}
+
+#temperature {
+  color: #97f993;
 }
 
 #battery.warning:not(.charging) {
@@ -251,56 +182,20 @@ tooltip {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-
 }
 
-#custom-power {
-  color: #f5a500;
+#tray, #network, #custom-power {
+  background-color: @groups-bg;
+  border-radius: 22px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
-
-#network {
-    color: #1ecbe1;
-}
-
-#custom-r_end {
-  border-radius: 0px 22px 22px 0px;
-  margin-right: 9px;
-  padding-right: 3px;
-}
-
-#custom-l_end {
-  border-radius: 22px 0px 0px 22px;
-  margin-left: 9px;
-  padding-left: 3px;
-}
-
-#custom-sr_end {
-  border-radius: 0px;
-  margin-right: 9px;
-  padding-right: 3px;
-}
-
-#custom-sl_end {
-  border-radius: 0px;
-  margin-left: 9px;
-  padding-left: 3px;
-}
-
-#custom-rr_end {
-  border-radius: 0px 8px 8px 0px;
-  margin-right: 9px;
-  padding-right: 3px;
-}
-
-#custom-rl_end {
-  border-radius: 8px 0px 0px 8px;
-  margin-left: 9px;
-  padding-left: 3px;
-}
-
 
 @keyframes blink {
   50% {
     opacity: 0;
   }
 }
+
