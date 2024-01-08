@@ -4,9 +4,11 @@
 @define-color groups-bg #191724;
 @define-color center-bg #313244;
 
+@define-color urgent #dc0000;
+
 @define-color tool-bg #1e1e2e;
 @define-color tool-color #cdd6f4;
-@define-color tool-border #11111b;
+@define-color tool-border #89b4fa;
 
 @define-color ws-color #cdd6f4;
 
@@ -37,7 +39,7 @@ window#waybar {
 }
 
 /* basic styles for groups */
-.modules-center,
+#media,
 #hyprland,
 #hardware,
 #sub-sound-bat {
@@ -48,10 +50,10 @@ window#waybar {
   border-radius: 22px;
 }
 
-.modules-center {
-  background-color: @center-bg;
-  border-radius: 0px 22px 0px;
-}
+/* .modules-center { */
+/*   background-color: @center-bg; */
+/*   border-radius: 0px 22px 0px; */
+/* } */
 
 /* basic styles for module */
 #cpu,
@@ -65,24 +67,53 @@ window#waybar {
 #pulseaudio,
 #custom-updates,
 #custom-power,
+#custom-media,
+#custom-media-prev,
+#custom-media-next,
+#backlight-slider,
 #network,
 #user,
 #submap,
 #tray {
   color: @main-color;
   opacity: 1;
-  margin: 4px 0px 4px 0px;
+  margin: 4px 0px;
   padding-left: 4px;
   padding-right: 4px;
 }
 
-tooltip {
+#clock,
+#hyprland,
+#hardware,
+#sub-sound-bat {
+  margin: 5px;
+  background: @groups-bg;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 22px;
+}
+
+tooltip,
+#tray menu {
+  opacity: 0.9;
   background: @tool-bg;
   color: @tool-color;
   border-radius: 22px;
   border-width: 2px;
   border-style: solid;
   border-color: @tool-border;
+}
+
+#user,
+#battery {
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 0px 22px 0px;
+}
+
+#user {
+  color: aqua;
+  background-color: #071f15;
 }
 
 #workspaces button {
@@ -117,12 +148,27 @@ tooltip {
 
 #workspaces button.urgent {
   color: #ffffff;
-  background-color: #dc0000;
+  background-color: @urgent;
 }
 
 #workspaces button.focused {
   color: #ffffff;
   background: #191724;
+}
+
+#media {
+  min-width: 50px;
+}
+
+#media  * {
+  color: #F7748D;
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#media .custom-spotify {
+  color: #1DB954;
 }
 
 #clock {
@@ -138,7 +184,7 @@ tooltip {
 }
 
 #temperature.critical {
-  color: #ff0000;
+  color: @urgent;
 }
 
 #pulseaudio {
@@ -161,12 +207,37 @@ tooltip {
   color: #97f993;
 }
 
+#backlight-slider {
+  min-width: 100px;
+}
+
+#backlight-slider slider {
+  background-color: @ws-act-bg;
+  background-image: none;
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+#backlight-slider trough,
+#backlight-slider highlight {
+  border-radius: 5px;
+}
+
+#backlight-slider trough {
+  background-color: black;
+}
+
+#backlight-slider highlight {
+  background-color: @tool-border;
+}
+
 #battery.warning:not(.charging) {
   color: #ffcc00;
 }
 
-#battery.critical:not(.charging) {
-  background: rgba(220, 0, 0, .6);
+#battery.critical:not(.charging),
+#tray .needs-attention {
+  background-color: #f38ba8;
   animation-name: blink;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -181,6 +252,23 @@ tooltip {
   padding-right: 15px;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+#tray {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#tray menu {
+  opacity: 1;
+}
+
+#tray * {
+  border-radius: 22px;
+}
+
+#tray .passive {
+  background-color: rgba(137, 180, 250, .4);
 }
 
 @keyframes blink {

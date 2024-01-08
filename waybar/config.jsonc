@@ -1,18 +1,19 @@
 {
   "layer": "top",
-  "position": "top",
+  "position": "bottom",
   "height": 40,
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
 
-  "modules-left": ["group/hyprland", "group/hardware"],
-  "modules-center": ["user", "clock"],
+  "modules-left": ["user", "group/hyprland", "group/hardware"],
+  "modules-center": ["group/media"],
   "modules-right": [
     "group/sub-sound-bat",
     "custom/updates",
     "tray",
     "network",
+    "clock",
     "custom/power"
   ],
 
@@ -21,6 +22,15 @@
     "modules": [
       "hyprland/workspaces",
       "hyprland/window",
+    ]
+  },
+
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/media-prev",
+      "custom/media",
+      "custom/media-next",
     ]
   },
 
@@ -35,6 +45,7 @@
       "hyprland/submap",
       "pulseaudio",
       "pulseaudio#microphone",
+      "backlight/slider",
       "battery"
     ]
   },
@@ -95,23 +106,53 @@
   },
 
   "user": {
-    "format": " 󰅭 {work_H}:{work_M} ",
+    "format": "󰅭 {work_H}:{work_M}",
     "interval": 60,
     "height": 30,
     "width": 30,
-    "icon": true,
     "open-on-click": true
   },
 
-  "clock": {
-    "format": "{:  %I:%M %p   󰃭  %a %d}",
-    "format-alt": "{:󰥔  %H:%M     %b %Y}",
-    "tooltip-format": "<tt><big>{calendar}</big></tt>"
+  "custom/media-prev": {
+    "format": "󰙣",
+    "escape": true,
+    "tooltip": true,
+    "return-type": "json",
+    "exec-if": "playerctl",
+    "on-click": "playerctl previous",
+    "exec": "playerctl metadata --format '{\"tooltip\":\"{{ artist }} - {{ title }}\", \"class\": \"custom-{{ playerName }}\"}' -F"
+  },
+
+  "custom/media-next": {
+    "format": "󰙡",
+    "escape": true,
+    "tooltip": true,
+    "return-type": "json",
+    "on-click": "playerctl next",
+    "exec-if": "playerctl",
+    "exec": "playerctl metadata --format '{\"tooltip\":\"{{ artist }} - {{ title }}\", \"class\": \"custom-{{ playerName }}\"}' -F"
+  },
+
+  "custom/media": {
+    "escape": true,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "exec-if": "$HOME/.config/waybar/scripts/mediaplayer.py",
+    "exec": "$HOME/.config/waybar/scripts/mediaplayer.py --enable-logging -vvv 2> /dev/null",
   },
 
   "hyprland/submap": {
     "format": "󰔡 {}",
     "tooltip": true
+  },
+
+  "backlight/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal",
   },
 
   "battery": {
@@ -153,6 +194,11 @@
     "scroll-step": 5
   },
 
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10
+  },
+
   "network": {
     "format-wifi": "  {essid}",
     "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀",
@@ -161,10 +207,31 @@
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
 	},
 
-  "tray": {
-    "icon-size": 20,
-    "spacing": 9
+  "clock": {
+    "format": "{:󰃭  %a %d}",
+    "format-alt": "{:   %R}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode"          : "year",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "right",
+      "on-scroll"     : 1,
+      "on-click-right": "mode",
+      "format": {
+        "months":     "<span color='#00C6BA'><b>{}</b></span>",
+        "days":       "<span color='#cdd6f4'><b>{}</b></span>",
+        "weeks":      "<span color='#4C6F9E'><b>W{}</b></span>",
+        "weekdays":   "<span color='#943d90'><b>{}</b></span>",
+        "today":      "<span color='#f38ba8'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
   },
+
 
   "custom/power": {
     "format": "{}",
