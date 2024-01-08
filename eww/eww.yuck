@@ -1,0 +1,20 @@
+(include "widgets/player-manager/eww.yuck")
+
+(defwindow bar
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore false
+  :exclusive true
+  :geometry (geometry
+              :x "0%"
+              :y "20px"
+              :width "98%"
+              :height "40px"
+              :anchor "top center"
+  )
+  (box
+    (player-manager :app-name "${players?.[player]?.name}" :status "${players?.[player]?.status}")
+  )
+)
+

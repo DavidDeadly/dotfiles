@@ -1,0 +1,8 @@
+@import "variables.scss";
+@import "widgets/player-manager/eww.scss";
+
+* { all: unset; }
+
+.bar {
+  background-color: rgba($bar-bg, .4)
+}

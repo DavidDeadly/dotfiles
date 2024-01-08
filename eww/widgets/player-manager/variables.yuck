@@ -1,0 +1,35 @@
+(defvar player "none")
+(deflisten players :initial "[]"
+  `widgets/player-manager/scripts/mediaplayer.py`
+)
+(defvar player-actions 
+  '[
+    {
+      "name": "previous",
+      "tooltip": "Previous song",
+      "icon": {
+        "Playing" : "󰙣",
+        "Paused": "󰙣",
+        "None": "󰙤"
+      }
+    },
+    {
+      "name": "play-pause",
+      "tooltip": "",
+      "icon": {
+        "Playing" : "",
+        "Paused": "",
+        "None": "󰝛"
+      }
+    },
+    {
+      "name": "next",
+      "tooltip": "Next song",
+      "icon": {
+        "Playing" : "󰙡",
+        "Paused": "󰙡",
+        "None": "󰙢"
+      }
+    }
+   ]'
+)

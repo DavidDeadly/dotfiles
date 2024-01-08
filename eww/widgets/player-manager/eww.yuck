@@ -1,0 +1,48 @@
+(include "widgets/player-manager/variables.yuck")
+
+(defwidget player-manager [app-name status]
+  (box
+    :spacing 15
+    :halign "center"
+    :class "player-manager"
+    :orientation "horizontal"
+
+    (for action in player-actions
+      (player-button
+        :on-click "playerctl -p ${app-name} ${action?.name}"
+        :disable {status == 'None'}
+        :className app-name
+        :size {
+          action?.name == "play-pause" ? 25
+          : 21
+        }
+        :icon {action?.icon?.[status]?:''}
+        :tooltip {
+            status == "Playing" ? "${action?.tooltip?:'Pause'}" 
+            : status == "Paused" ? "${action?.tooltip?:'Play'}"
+            : 'No player' 
+          }
+        )
+    )
+  )
+)
+
+(defwidget player-button [
+  on-click
+  icon
+  disable
+  tooltip
+  ?className
+  ?size
+]
+  (button 
+    :style "font-size:${size}px"
+    :tooltip tooltip
+    :active {!disable}
+    :class "player-icons ${className}"
+    :onclick on-click
+    (label
+      :text icon
+    )
+  )
+)

@@ -1,0 +1,22 @@
+
+// .player-icons {
+//   background-color: blue;
+// }
+
+.player-manager {
+  background-color: $groups-bg;
+  padding: 10px;
+  border-radius: $border-radius;
+}
+
+.player-icons {
+  border-radius: 0.1em;
+}
+
+.player-icons.spotify {
+  color: $spotify;
+}
+
+.player-icons.chromium {
+  color: $vivaldi;
+}
