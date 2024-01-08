@@ -58,12 +58,12 @@
         {
           "background": "#E4F34A",
           "foreground": "#29315A",
-          "leading_diamond": " \ue0c7",
+          "leading_diamond": "\ue0c7",
           "properties": {
             "fetch_version": true
           },
           "style": "diamond",
-          "template": "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
           "trailing_diamond": "\ue0c6",
           "type": "python"
         },
@@ -205,10 +205,7 @@
           "foreground_templates": [
             "{{ if gt .Code 0 }}#f1184c{{ end }}"
           ],
-          "leading_diamond": "\ue0c7",
-          "style": "diamond",
           "template": "{{ .UserName }} \u276f",
-          "trailing_diamond": "\ue0c6",
           "type": "text"
         }
       ],
