@@ -3,20 +3,70 @@
 //   background-color: blue;
 // }
 
+$player-manager-width: 100px;
+
 .player-manager {
   background-color: $groups-bg;
-  padding: 10px;
   border-radius: $border-radius;
+  min-width: $player-manager-width;
+  padding: 10px;
+
+  &.spotify {
+
+    .player-icons {
+      color: $spotify;
+    }
+
+    box tooltip {
+      background-color: rgba($spotify, .5);
+    }
+  }
+
+  &.chromium {
+
+    .player-icons {
+      color: $vivaldi;
+    }
+  }
 }
 
 .player-icons {
   border-radius: 0.1em;
 }
 
-.player-icons.spotify {
-  color: $spotify;
+
+.player-selector {
+  background-color: $groups-bg;
+  border-radius: $border-radius;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 16px;
+
+  label {
+    font-size: 1.2em;  
+  }
+
+  button {
+    color: black;
+    font-size: .8em;
+    border-radius: 5px;
+    padding: 8px;
+
+    &.spotify {
+      background-color: $spotify;
+    }
+
+    &.chromium {
+      background-color: $vivaldi;
+    }
+
+    &.selected {
+      opacity: 0.5;
+    }
+
+    &:hover {
+      background-color: $btn-hover;
+    }
+  }
 }
 
-.player-icons.chromium {
-  color: $vivaldi;
-}

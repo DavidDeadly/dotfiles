@@ -1,28 +1,73 @@
 (include "widgets/player-manager/variables.yuck")
 
-(defwidget player-manager [app-name status]
-  (box
-    :spacing 15
-    :halign "center"
-    :class "player-manager"
-    :orientation "horizontal"
+(defwidget player-manager [app-name status artist-song]
+  (eventbox
+    :cursor "pointer"
+    :onclick "eww open player-selector"
 
-    (for action in player-actions
-      (player-button
-        :on-click "playerctl -p ${app-name} ${action?.name}"
-        :disable {status == 'None'}
-        :className app-name
-        :size {
-          action?.name == "play-pause" ? 25
-          : 21
-        }
-        :icon {action?.icon?.[status]?:''}
-        :tooltip {
-            status == "Playing" ? "${action?.tooltip?:'Pause'}" 
-            : status == "Paused" ? "${action?.tooltip?:'Play'}"
-            : 'No player' 
-          }
+    (box
+      :class "player-manager ${app-name}"
+      :tooltip artist-song
+      :halign "center"
+      :valign "center"
+      :space-evenly true
+      (for action in player-actions
+        (player-button
+            :on-click "playerctl -p ${app-name} ${action?.name}"
+            :disable {status == 'None'}
+            :size {
+              action?.name == "play-pause" ? 25
+              : 21
+            }
+            :icon {action?.icon?.[status]?:''}
+            :tooltip {
+              status == "Playing" ? "${action?.tooltip?:'Pause'}" 
+              : status == "Paused" ? "${action?.tooltip?:'Play'}"
+              : 'No player' 
+            }
+          )
         )
+    )
+  )
+)
+
+(defwindow player-selector
+  :monitor 0
+  :stacking "fg"
+  :geometry (
+    geometry
+      :x "0%"
+      :y "20px"
+      :width "5%"
+      :height "30px"
+      :anchor "top center"
+  )
+  :windowtype "dialog"
+  :exclusive false
+
+  (eventbox
+    :onclick "eww close player-selector"
+    (box
+      :spacing 10
+      :halign "center"
+      :orientation "vertical"
+      :class "player-selector"
+      (label
+          :text "Controlled player"
+        )
+      (box
+        (for player_name in {jq(players, '[.[] | select(.name != "No player").name]')}
+          (button
+              :valign "center"
+              :halign "center"
+              :tooltip "select ${player_name} as the controlled player"
+              :class "${player_name} ${player == player_name ? 'selected' : ''}"
+              :active {player != player_name}
+              :onclick "eww update player='${player_name}'; eww close player-selector"
+              player_name
+          )
+        )
+      )
     )
   )
 )

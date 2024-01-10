@@ -1,3 +1,4 @@
+
 (include "widgets/player-manager/eww.yuck")
 
 (defwindow bar
@@ -8,13 +9,19 @@
   :exclusive true
   :geometry (geometry
               :x "0%"
-              :y "20px"
+              :y "15px"
               :width "98%"
               :height "40px"
               :anchor "top center"
   )
   (box
-    (player-manager :app-name "${players?.[player]?.name}" :status "${players?.[player]?.status}")
+    :height 40
+    (player-manager
+      :app-name "${players?.[player]?.name}"
+      :status "${players?.[player]?.status}"
+      :artist-song "${players?.[player]?.artist-song}"
+    )
   )
 )
+
 
