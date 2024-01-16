@@ -12,6 +12,7 @@
 .group {
   background-color: $groups-bg;
   border-radius: $border-radius;
+  padding: 10px;
 }
 
 tooltip.background {
@@ -25,6 +26,13 @@ tooltip label {
     margin: 6px;
 }
 
+.up-time {
+  font-weight: bold;
+  color: aqua;
+  border-radius: 0px $border-radius 0px;
+  background-color: #071f15;
+}
+
 .power-button {
   color: #f5a500;
   padding: 15px;
@@ -33,7 +41,6 @@ tooltip label {
 .time {
   min-width: 70px;
   color: #f6c177;
-  padding: 10px;
 }
 
 .calendar {
@@ -46,5 +53,4 @@ tooltip label {
     padding: 8px;
   }
 }
-
 

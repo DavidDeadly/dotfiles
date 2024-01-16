@@ -2,6 +2,10 @@
   :initial `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
   `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
 )
+(defpoll uptime :interval "5s"
+  :initial `uptime | awk -F'[ ,]+' '{print $4}'`
+  `uptime | awk -F'[ ,]+' '{print $4}'`
+)
 (defvar time-or-date 'date')
 (include "widgets/player-manager/eww.yuck")
 
@@ -22,7 +26,7 @@
     :height 40
     (box 
       :halign "start"
-      (power-button)
+      (up-time)
     )
     (player-manager
       :app-name "${players?.[player]?.name}"
@@ -56,6 +60,17 @@
     (calendar
       :class "dd-calendar"
       :show-week-numbers true
+    )
+  )
+)
+
+(defwidget up-time[]
+  (eventbox
+    :onclick "code ~"
+    :cursor "pointer"
+    (box
+      :class "group up-time"
+      (label :text "󰅭   ${uptime}")
     )
   )
 )
