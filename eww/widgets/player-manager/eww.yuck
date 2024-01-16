@@ -60,7 +60,10 @@
           (button
               :valign "center"
               :halign "center"
-              :tooltip "select ${player_name} as the controlled player"
+              :tooltip {
+                player == player_name ? "${player_name} is already selected"
+                : "select ${player_name} as the controlled player"
+              }
               :class "${player_name} ${player == player_name ? 'selected' : ''}"
               :active {player != player_name}
               :onclick "eww update player='${player_name}'; eww close player-selector"
