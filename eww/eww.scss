@@ -54,3 +54,18 @@ tooltip label {
   }
 }
 
+.memory {
+  color: #e0b089;
+  background-color: $groups-bg;
+	border-radius: $border-radius;
+
+  .progress {
+    background-color: #38384d;
+    border-radius: 10px;
+  }
+
+  .icon {
+    font-size: 15px;
+    margin: 10px;
+  }
+}

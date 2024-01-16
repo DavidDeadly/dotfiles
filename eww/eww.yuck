@@ -6,6 +6,9 @@
   :initial `uptime | awk -F'[ ,]+' '{print $4}'`
   `uptime | awk -F'[ ,]+' '{print $4}'`
 )
+(defpoll memory :interval "1s"
+  `printf "%.0f" $(free -m | grep Mem | awk '{print ($3/$2)*100}')`
+)
 (defvar time-or-date 'date')
 (include "widgets/player-manager/eww.yuck")
 
@@ -25,8 +28,11 @@
   (box
     :height 40
     (box 
+      :orientation "h"
+      :space-evenly false
       :halign "start"
       (up-time)
+      (mem)
     )
     (player-manager
       :app-name "${players?.[player]?.name}"
@@ -102,3 +108,26 @@
     )
   )
 )
+
+(defwidget mem []
+  (box
+    :class "group memory"
+    (circular-progress
+      :class "progress"
+      :vexpand false
+      :hexpand false
+      :value memory
+      :thickness 4
+    )
+    (button 
+      :class "icon"
+      :limit-width 2
+      :tooltip "using ${memory}% ram"
+      :onclick "htop"
+      :show_truncated false
+      :wrap false
+      ""
+    )
+  )
+)
+
