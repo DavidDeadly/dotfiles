@@ -44,7 +44,6 @@
   )
   :windowtype "dialog"
   :exclusive false
-
   (eventbox
     :onclick "eww close player-selector"
     (box

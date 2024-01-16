@@ -38,6 +38,27 @@
   )
 )
 
+(defwindow calendar
+  :monitor 0
+  :stacking "overlay"
+  :geometry (
+    geometry
+      :x "10px"
+      :y "20px"
+      :width "2%"
+      :height "30px"
+      :anchor "top right"
+  )
+  :windowtype "dialog"
+  :exclusive false
+  (eventbox
+    :onrightclick "eww close calendar"
+    (calendar
+      :class "dd-calendar"
+      :show-week-numbers true
+    )
+  )
+)
 
 (defwidget power-button []
   (button
@@ -50,7 +71,8 @@
 
 (defwidget time []
   (eventbox
-    :onclick {
+    :onclick "eww open calendar"
+    :onrightclick {
       time-or-date == 'date' ? "eww update time-or-date='time'"
       : "eww update time-or-date='date'"
     }
