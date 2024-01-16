@@ -6,7 +6,7 @@
     :onclick "eww open player-selector"
 
     (box
-      :class "player-manager ${app-name}"
+      :class "group player-manager ${app-name}"
       :tooltip artist-song
       :halign "center"
       :valign "center"

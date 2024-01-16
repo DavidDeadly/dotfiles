@@ -9,6 +9,11 @@
   background-color: rgba($bar-bg, .4);
 }
 
+.group {
+  background-color: $groups-bg;
+  border-radius: $border-radius;
+}
+
 tooltip.background {
     background-color: #0f0f17;
     font-size: 18;
@@ -18,4 +23,15 @@ tooltip.background {
 
 tooltip label {
     margin: 6px;
+}
+
+.power-button {
+  color: #f5a500;
+  padding: 15px;
+}
+
+.time {
+  min-width: 70px;
+  color: #f6c177;
+  padding: 10px;
 }

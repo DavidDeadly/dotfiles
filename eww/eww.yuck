@@ -1,4 +1,8 @@
-
+(defpoll date :interval "5s"
+  :initial `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
+  `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
+)
+(defvar time-or-date 'date')
 (include "widgets/player-manager/eww.yuck")
 
 (defwindow bar
@@ -16,12 +20,48 @@
   )
   (box
     :height 40
+    (box 
+      :halign "start"
+      (power-button)
+    )
     (player-manager
       :app-name "${players?.[player]?.name}"
       :status "${players?.[player]?.status}"
       :artist-song "${players?.[player]?.artist-song}"
     )
+    (box 
+      :halign "end"
+      :valign "center"
+      (time)
+      (power-button)
+    )
   )
 )
 
 
+(defwidget power-button []
+  (button
+    :halign "end"
+    :class "group power-button"
+    :onclick "~/.config/hypr/scripts/wlogout_launcher.sh"
+    (label :text "")
+  )
+)
+
+(defwidget time []
+  (eventbox
+    :onclick {
+      time-or-date == 'date' ? "eww update time-or-date='time'"
+      : "eww update time-or-date='date'"
+    }
+    (box
+      :class "group time"
+      (label 
+        :text {
+          time-or-date == 'date' ? "   ${date.month} ${date.day}"
+          : "󰃭   ${date.hour}:${date.min}"
+        }
+      )
+    )
+  )
+)
