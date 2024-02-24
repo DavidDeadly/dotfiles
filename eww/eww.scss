@@ -1,5 +1,6 @@
 @import "variables.scss";
 @import "widgets/player-manager/eww.scss";
+@import "widgets/time/eww.scss";
 
 * { all: unset; }
 
@@ -26,6 +27,11 @@ tooltip label {
     margin: 6px;
 }
 
+.power-button {
+  color: #f5a500;
+  padding: 15px;
+}
+
 .up-time {
   font-weight: bold;
   color: aqua;
@@ -33,29 +39,7 @@ tooltip label {
   background-color: #071f15;
 }
 
-.power-button {
-  color: #f5a500;
-  padding: 15px;
-}
-
-.time {
-  min-width: 70px;
-  color: #f6c177;
-}
-
-.calendar {
-  background-color: #00C6BA;
-
-  .dd-calendar {
-    color: $general-text;
-    font-size: 18px;
-    background-color: rgba($bar-bg, .8);
-    padding: 8px;
-  }
-}
-
-.memory {
-  color: #e0b089;
+.progress-box {
   background-color: $groups-bg;
 	border-radius: $border-radius;
 
@@ -65,7 +49,8 @@ tooltip label {
   }
 
   .icon {
-    font-size: 15px;
-    margin: 10px;
+    font-size: 45px;
+    opacity: .5;
   }
 }
+

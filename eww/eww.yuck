@@ -1,16 +1,5 @@
-(defpoll date :interval "5s"
-  :initial `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
-  `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
-)
-(defpoll uptime :interval "5s"
-  :initial `uptime | awk -F'[ ,]+' '{print $4}'`
-  `uptime | awk -F'[ ,]+' '{print $4}'`
-)
-(defpoll memory :interval "1s"
-  `printf "%.0f" $(free -m | grep Mem | awk '{print ($3/$2)*100}')`
-)
-(defvar time-or-date 'date')
 (include "widgets/player-manager/eww.yuck")
+(include "widgets/time/eww.yuck")
 
 (defwindow bar
   :monitor 0
@@ -32,7 +21,6 @@
       :space-evenly false
       :halign "start"
       (up-time)
-      (mem)
     )
     (player-manager
       :app-name "${players?.[player]?.name}"
@@ -43,31 +31,18 @@
       :halign "end"
       :space-evenly false
       :valign "center"
+      (system)
       (time)
       (power-button)
     )
   )
 )
 
-(defwindow calendar
-  :monitor 0
-  :stacking "overlay"
-  :geometry (
-    geometry
-      :x "10px"
-      :y "20px"
-      :width "2%"
-      :height "30px"
-      :anchor "top right"
-  )
-  :windowtype "dialog"
-  :exclusive false
-    (calendar
-      :class "dd-calendar"
-      :show-week-numbers true
-  )
-)
 
+(defpoll uptime :interval "5s"
+  :initial `uptime | awk -F'[ ,]+' '{print $4}'`
+  `uptime | awk -F'[ ,]+' '{print $4}'`
+)
 (defwidget up-time[]
   (eventbox
     :onclick "code ~"
@@ -88,46 +63,65 @@
   )
 )
 
-(defvar keep-calendar false)
-(defwidget time []
-  (eventbox
-    :onhover { !keep-calendar ? "eww open calendar" : "" }
-    :onhoverlost { !keep-calendar ? "eww close calendar" : "" }
-    :onclick { keep-calendar ? "eww update keep-calendar=false" : "eww update keep-calendar=true" }
-    :onrightclick {
-      time-or-date == 'date' ? "eww update time-or-date='time'"
-      : "eww update time-or-date='date'"
-    }
-    (box
-      :class "group time"
-      (label 
-        :text {
-          time-or-date == 'date' ? "   ${date.month} ${date.day}"
-          : "󰃭   ${date.hour}:${date.min}"
-        }
-      )
+
+(defpoll memory :interval "1s"
+  `printf "%.0f" $(free -m | grep Mem | awk '{print ($3/$2)*100}')`
+)
+(defwidget system []
+  (box
+    :class "group"
+    :spacing 8
+    (progress-button
+      :color "#e0b089"
+      :value memory
+      :tooltip "Using ${memory}% ram"
+    )
+    (battery
+      :battery {EWW_BATTERY.BAT1.capacity}
+      :status {EWW_BATTERY.BAT1.status}
     )
   )
 )
 
-(defwidget mem []
+(defwidget battery [
+    status
+    battery
+  ]
+  (progress-button
+    :color {
+      status == "Charging" ? "#1981e6"
+      : battery < 15 ? "#f5000b"
+      : battery < 30 ? "#fd5f02"
+      : "#1e9d9a"
+    }
+    :value battery
+    :tooltip "Battery on ${battery}%"
+  )
+)
+
+(defwidget progress-button [
+    value
+    tooltip
+    color
+    ?on-click
+  ]
   (box
-    :class "group memory"
+    :class "progress-box"
     (circular-progress
       :class "progress"
-      :vexpand false
-      :hexpand false
-      :value memory
+      :style "color: ${color}"
+      :value value
       :thickness 4
-    )
-    (button 
-      :class "icon"
-      :limit-width 2
-      :tooltip "using ${memory}% ram"
-      :onclick "htop"
-      :show_truncated false
-      :wrap false
-      ""
+
+      (button 
+        :class "icon"
+        :limit-width 2
+        :tooltip tooltip
+        :onclick on-click
+        :show_truncated false
+        :wrap false
+        ""
+      )
     )
   )
 )
