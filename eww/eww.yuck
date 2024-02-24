@@ -88,10 +88,11 @@
     battery
   ]
   (progress-button
+    :class { battery <= 15 ? "blink" : ""}
     :color {
       status == "Charging" ? "#1981e6"
-      : battery < 15 ? "#f5000b"
-      : battery < 30 ? "#fd5f02"
+      : battery <= 15 ? "#f5000b"
+      : battery <= 30 ? "#fd5f02"
       : "#1e9d9a"
     }
     :value battery
@@ -103,10 +104,11 @@
     value
     tooltip
     color
+    ?class
     ?on-click
   ]
   (box
-    :class "progress-box"
+    :class "progress-box ${class}"
     (circular-progress
       :class "progress"
       :style "color: ${color}"

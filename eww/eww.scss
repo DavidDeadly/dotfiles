@@ -54,3 +54,18 @@ tooltip label {
   }
 }
 
+.blink {
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
