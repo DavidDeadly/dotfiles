@@ -41,6 +41,7 @@
     )
     (box 
       :halign "end"
+      :space-evenly false
       :valign "center"
       (time)
       (power-button)
@@ -61,12 +62,9 @@
   )
   :windowtype "dialog"
   :exclusive false
-  (eventbox
-    :onrightclick "eww close calendar"
     (calendar
       :class "dd-calendar"
       :show-week-numbers true
-    )
   )
 )
 
@@ -90,9 +88,12 @@
   )
 )
 
+(defvar keep-calendar false)
 (defwidget time []
   (eventbox
-    :onclick "eww open calendar"
+    :onhover { !keep-calendar ? "eww open calendar" : "" }
+    :onhoverlost { !keep-calendar ? "eww close calendar" : "" }
+    :onclick { keep-calendar ? "eww update keep-calendar=false" : "eww update keep-calendar=true" }
     :onrightclick {
       time-or-date == 'date' ? "eww update time-or-date='time'"
       : "eww update time-or-date='date'"
