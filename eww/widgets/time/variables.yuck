@@ -1,0 +1,8 @@
+(defvar keep-calendar false)
+
+(defvar time-or-date 'date')
+
+(defpoll date :interval "5s"
+  :initial `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
+  `date +'{"hour":"%H","min":"%M", "month": "%a", "day": "%d" }'`
+)

@@ -58,6 +58,8 @@ class PlayerManager:
         first_playing_player = self.get_first_playing_player()
         if first_playing_player is not None:
             self.update_player(first_playing_player.props.player_name)
+        else:
+            self.update_player(self.default_player)
 
         self.write_output()
         self.set_players_list()
@@ -80,23 +82,23 @@ class PlayerManager:
             "name": player.props.player_name,
             "status": player_status
         }
-    
+
     def get_players(self):
         return self.manager.props.players
 
     def get_first_playing_player(self):
         players = self.get_players()
 
-        if len(players) > 0:
-            # if any are playing, show the first one that is playing
-            # reverse order, so that the most recently added ones are preferred
-            for player in players[::-1]:
-                if player.props.status == "Playing":
-                    return player
-            # if none are playing, show the first one
-            return players[0]
-        else:
+        if len(players) == 0:
             return None
+
+        # if any are playing, show the first one that is playing
+        # reverse order, so that the most recently added ones are preferred
+        for player in players[::-1]:
+            if player.props.status == "Playing":
+                return player
+
+        return None
 
     def on_player_appeared(self, _, player_data):
         if player_data is not None:
@@ -133,15 +135,22 @@ class PlayerManager:
             track_info = title
 
         self.players_data[player_name]["artist-song"] = track_info
+        self.players_data[player_name]["status"] = self.parse_status(player.props.playback_status)
         self.write_output()
 
     def update_player(self, player_name):
         os.system(f"eww update player={player_name}")
 
     def parse_status(self, status: int) -> str:
-        player_status = "Paused" if status == 1 else "Playing"
+        if status == 1:
+            return "Paused"
 
-        return player_status
+        if status == 0:
+            return "Playing"
+
+        self.update_player(self.default_player)
+
+        return "None"
 
     def write_output(self):
         sys.stdout.write(json.dumps(self.players_data) + "\n")
