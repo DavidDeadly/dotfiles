@@ -10,7 +10,7 @@
   :exclusive true
   :geometry (geometry
               :x "0%"
-              :y "10px"
+              :y "15px"
               :width "98%"
               :height "40px"
               :anchor "top center"
@@ -20,8 +20,15 @@
     (box 
       :space-evenly false
       :spacing 5
+      :halign "start"
       (up-time)
-      (workspaces)
+      (box
+        :class "group"
+        :space-evenly false
+        :spacing 15
+        (workspaces)
+        (window)
+      )
     )
     (player-manager
       :app-name "${players?.[player]?.name}"
@@ -32,6 +39,7 @@
       :halign "end"
       :space-evenly false
       :spacing 5
+      :valign "center"
       (system)
       (network)
       (time)

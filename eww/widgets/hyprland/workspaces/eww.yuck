@@ -3,7 +3,7 @@
 
 (defwidget workspaces []
   (box 
-    :class "group workspaces"
+    :class "workspaces"
     :spacing 5
     (label :text "${workspaces}${current_workspace}" :visible false)
     (for workspace in workspaces
@@ -16,5 +16,15 @@
         )
       )
     )
+  )
+)
+
+(deflisten window :initial "..." "sh ~/.config/eww/widgets/hyprland/workspaces/scripts/get-window-title")
+(defwidget window []
+  (label 
+    :class "title"
+    :limit-width 30
+    :show-truncated true
+    :text " ${window}"
   )
 )
