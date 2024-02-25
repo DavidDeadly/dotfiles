@@ -9,15 +9,14 @@
       :class "group player-manager ${app-name}"
       :tooltip artist-song
       :halign "center"
-      :valign "center"
       :space-evenly true
       (for action in player-actions
         (player-button
-            :on-click "playerctl -p ${app-name} ${action?.name}"
+            :on-click "playerctl -p ${app-name} ${action?.name} || eww update player=none"
             :disable {status == 'None'}
             :size {
-              action?.name == "play-pause" ? 25
-              : 21
+              action?.name == "play-pause" ? 28
+              : 23
             }
             :icon {action?.icon?.[status]?:''}
             :tooltip {
