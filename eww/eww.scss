@@ -48,9 +48,14 @@ tooltip label {
     border-radius: 10px;
   }
 
-  .icon {
-    font-size: 45px;
+  .value {
+    font-size: 15px;
     opacity: .5;
+    padding: 8px;
+  }
+
+  .icon {
+    font-size: 20px;
   }
 }
 
@@ -62,6 +67,15 @@ tooltip label {
   animation-direction: alternate;
 
 }
+
+.network {
+  color: #1ecbe1;
+  font-size: 15px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 
 @keyframes blink {
   50% {

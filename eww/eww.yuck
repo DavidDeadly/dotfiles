@@ -32,6 +32,7 @@
       :space-evenly false
       :valign "center"
       (system)
+      (network)
       (time)
       (power-button)
     )
@@ -63,7 +64,6 @@
   )
 )
 
-
 (defpoll memory :interval "1s"
   `printf "%.0f" $(free -m | grep Mem | awk '{print ($3/$2)*100}')`
 )
@@ -72,6 +72,7 @@
     :class "group"
     :spacing 8
     (progress-button
+      :icon "󰧑"
       :color "#e0b089"
       :value memory
       :tooltip "Using ${memory}% ram"
@@ -88,7 +89,20 @@
     battery
   ]
   (progress-button
-    :class { battery <= 15 ? "blink" : ""}
+    :icon {
+      status == 'Charging' ? "󰂄"
+      : battery <= 15 ? "󰂃"
+      : battery <= 30 ? "󰁼"
+      : battery <= 45 ? "󰁾"
+      : battery <= 60 ? "󰁿"
+      : battery <= 75 ? "󰂀"
+      : battery <= 95 ? "󰁹"
+      : "󰂅"
+    }
+    :class {
+      battery <= 15 && status != "Charging"
+        ? "blink" : ""
+    }
     :color {
       status == "Charging" ? "#1981e6"
       : battery <= 15 ? "#f5000b"
@@ -101,6 +115,7 @@
 )
 
 (defwidget progress-button [
+    icon
     value
     tooltip
     color
@@ -112,17 +127,39 @@
     (circular-progress
       :class "progress"
       :style "color: ${color}"
+      :start-at 75
       :value value
       :thickness 4
 
       (button 
-        :class "icon"
-        :limit-width 2
+        :class "value"
         :tooltip tooltip
         :onclick on-click
-        :show_truncated false
-        :wrap false
-        ""
+        value
+      )
+    )
+    (label
+      :class "icon"
+      :style "color: ${color}"
+      :text icon
+    )
+  )
+)
+
+(defpoll network 
+  :interval "10s"
+  :initial '{"front": "󰈂 Disconnect", "back": "Please connect 󱘖", "label": "The internet is waiting... "}'
+  `~/.config/eww/net.py`
+)
+(defvar fb-network 'front')
+(defwidget network []
+  (eventbox
+    :onclick {fb-network == 'front' ? "eww update fb-network=back" : "eww update fb-network=front"}
+    :tooltip {network.tooltip}
+    (box
+      :class "group network"
+      (label
+        :text {fb-network == 'front' ? network.front : network.back}
       )
     )
   )

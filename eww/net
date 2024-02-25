@@ -1,0 +1,25 @@
+#!/bin/bash
+
+nmcli -f GENERAL.DEVICE,GENERAL.TYPE,GENERAL.STATE,GENERAL.CONNECTION,IP4.ADDRESS dev show \
+        | awk -F: '
+                /^GENERAL.DEVICE:/ {device=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", device)}
+                /^GENERAL.TYPE/ {type=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", type)}
+                /^GENERAL.STATE/ {status=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", status)}
+                /^GENERAL.CONNECTION/ {connection=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", connection)}
+                /^IP4.ADDRESS/ {ip4=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", ip4);
+                        printf "%s:%s:%s:%s:%s\n",
+                        device, type, status, connection, ip4 }' \
+        | jq -sR '
+                split("\n") |
+                 map(
+                        select(length > 0 and (test("dev-wlan|loopback") | not))
+                ) |
+                 map(split(":")) |
+                 map({
+                         "iface": .[0],
+                         "type": .[1],
+                         "status": .[2],
+                         "connection": .[3],
+                         ip: .[4]
+                 })'
+
