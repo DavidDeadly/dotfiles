@@ -1,5 +1,6 @@
 (include "widgets/player-manager/eww.yuck")
 (include "widgets/time/eww.yuck")
+(include "widgets/hyprland/workspaces/eww.yuck")
 
 (defwindow bar
   :monitor 0
@@ -9,7 +10,7 @@
   :exclusive true
   :geometry (geometry
               :x "0%"
-              :y "15px"
+              :y "10px"
               :width "98%"
               :height "40px"
               :anchor "top center"
@@ -17,10 +18,10 @@
   (box
     :height 40
     (box 
-      :orientation "h"
       :space-evenly false
-      :halign "start"
+      :spacing 5
       (up-time)
+      (workspaces)
     )
     (player-manager
       :app-name "${players?.[player]?.name}"
@@ -30,7 +31,7 @@
     (box 
       :halign "end"
       :space-evenly false
-      :valign "center"
+      :spacing 5
       (system)
       (network)
       (time)
@@ -50,14 +51,14 @@
     :cursor "pointer"
     (box
       :class "group up-time"
-      (label :text "󰅭   ${uptime}")
+      (label :text "󰅭 ${uptime}")
     )
   )
 )
 
 (defwidget power-button []
   (button
-    :halign "end"
+    :valign "center"
     :class "group power-button"
     :onclick "~/.config/hypr/scripts/wlogout_launcher.sh"
     (label :text "")

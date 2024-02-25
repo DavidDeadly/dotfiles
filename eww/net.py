@@ -10,9 +10,9 @@ COMMAND = "./net"
 def output(interface):
     if interface is None:
         data = {
-            "front": "  󰈂   Disconnected",
-            "back": "Please connect  󱘖 ",
-            "tooltip": "The internet is waiting...  "
+            "front": "󰈂 Disconnected",
+            "back": "Please connect 󱘖",
+            "tooltip": "The internet is waiting... "
         }
 
         sys.stdout.write(f"{json.dumps(data)}\n")
@@ -25,10 +25,10 @@ def output(interface):
     iface = interface.get("iface")
 
     data = {
-        "front": is_ethernet and f"  󰈀   {ip}"
-        or f"  󰖩   {connection}",
+        "front": is_ethernet and f"󰈀 {ip}"
+        or f"󰖩 {connection}",
 
-        "back": is_ethernet and f" {iface}:  {status} " or f" {iface}:  {ip} ",
+        "back": is_ethernet and f"{iface}: {status}" or f"{iface}: {ip}",
 
         "tooltip": is_ethernet and f"{connection}" or f"{connection}: {status}",
     }

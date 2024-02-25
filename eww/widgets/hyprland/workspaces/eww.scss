@@ -1,0 +1,23 @@
+$ws-color: #cdd6f4;
+
+$ws-act-bg: #30cfbb;
+$ws-act-color: #313244;
+
+$ws-hvr-bg: #f5c2e7;
+$ws-hvr-color: #313244;
+
+
+.workspaces {
+  button {
+    color: $ws-color;
+    text-shadow: none;
+    border-radius: 10px;
+    padding: 0px 10px 0px 10px;
+
+    &.current {
+      color: $ws-act-color;
+      background: $ws-act-bg;
+    }
+  }
+}
+

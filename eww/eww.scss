@@ -1,13 +1,15 @@
 @import "variables.scss";
 @import "widgets/player-manager/eww.scss";
 @import "widgets/time/eww.scss";
+@import "widgets/hyprland/workspaces/eww.scss";
 
 * { all: unset; }
 
 .bar {
   padding: 5px;
   border-radius: 10px;
-  background-color: rgba($bar-bg, .4);
+  // background-color: rgba($bar-bg, .4);
+  font-family: CaskaydiaCoveNerdFont;
 }
 
 .group {
@@ -28,8 +30,9 @@ tooltip label {
 }
 
 .power-button {
+  border-radius: 50%;
   color: #f5a500;
-  padding: 15px;
+  padding: 15px 20px;
 }
 
 .up-time {
@@ -51,7 +54,7 @@ tooltip label {
   .value {
     font-size: 15px;
     opacity: .5;
-    padding: 8px;
+    padding: 10px;
   }
 
   .icon {
@@ -65,7 +68,6 @@ tooltip label {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-
 }
 
 .network {
