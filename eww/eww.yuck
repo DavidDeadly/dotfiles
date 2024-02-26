@@ -76,10 +76,20 @@
 (defpoll memory :interval "1s"
   `printf "%.0f" $(free -m | grep Mem | awk '{print ($3/$2)*100}')`
 )
+(defpoll volume :interval "24h" :initial 0 `pamixer --get-volume`)
+(defvar is-mute false)
 (defwidget system []
   (box
     :class "group"
     :spacing 8
+    (progress-button
+      :icon {is-mute ? "󰝟" : ""}
+      :color {is-mute ? "#fbd8fa" : "#b213b0"}
+      :value volume
+      :icon-on-click "pamixer --toggle-mute && eww update is-mute=$(pamixer --get-mute)"
+      :on-click "~/.config/eww/launch-pavucontrol &"
+      :tooltip "Volume on ${volume}%"
+    )
     (progress-button
       :icon "󰧑"
       :color "#e0b089"
@@ -130,27 +140,33 @@
     color
     ?class
     ?on-click
+    ?icon-on-click
   ]
-  (box
+  (eventbox
     :class "progress-box ${class}"
-    (circular-progress
-      :class "progress"
-      :style "color: ${color}"
-      :start-at 75
-      :value value
-      :thickness 4
+    :onclick on-click
+    (box
+      (circular-progress
+        :class "progress"
+        :style "color: ${color}"
+        :start-at 75
+        :value value
+        :thickness 4
 
-      (button 
-        :class "value"
-        :tooltip tooltip
-        :onclick on-click
-        value
+        (label 
+          :class "value"
+          :tooltip tooltip
+          :text value
+        )
       )
-    )
-    (label
-      :class "icon"
-      :style "color: ${color}"
-      :text icon
+      (button
+        :onclick icon-on-click
+        (label
+          :class "icon"
+          :style "color: ${color}"
+          :text icon
+        )
+      )
     )
   )
 )
