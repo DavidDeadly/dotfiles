@@ -13,8 +13,9 @@
       :class "group time"
       (label 
         :text {
-          time-or-date == 'date' ? "  ${date.month} ${date.day}"
-          : "󰃭  ${date.hour}:${date.min}"
+          time-or-date == 'date'
+          ? '  ${formattime(EWW_TIME, "%a %d ")}'
+          : "󰃭  ${formattime(EWW_TIME, "%H:%M")}"
         }
       )
     )
