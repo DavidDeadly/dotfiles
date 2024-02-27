@@ -4,7 +4,6 @@
   (eventbox
     :cursor "pointer"
     :onclick "eww open player-selector"
-
     (box
       :class "group player-manager ${app-name}"
       :tooltip artist-song
@@ -15,8 +14,8 @@
             :on-click "playerctl -p ${app-name} ${action?.name} || eww update player=none"
             :disable {status == 'None'}
             :size {
-              action?.name == "play-pause" ? 28
-              : 23
+              action?.name == "play-pause" ? 30
+              : 25
             }
             :icon {action?.icon?.[status]?:''}
             :tooltip {
@@ -51,8 +50,8 @@
       :orientation "vertical"
       :class "player-selector"
       (label
-          :text "Controlled player"
-        )
+        :text "Controlled player"
+      )
       (box
         (for player_name in {jq(players, '[.[] | select(.name != "No player").name]')}
           (button
@@ -85,7 +84,7 @@
     :style "font-size:${size}px"
     :tooltip tooltip
     :active {!disable}
-    :class "player-icons ${className}"
+    :class "player-icons ${className} ${disable ? 'none' : ''}"
     :onclick on-click
     (label
       :text icon

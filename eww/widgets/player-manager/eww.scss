@@ -7,13 +7,12 @@ $player-manager-width: 100px;
 
 .player-manager {
   min-width: $player-manager-width;
-  padding: 10px;
+
+  &.active {
+  }
 
   &.spotify {
-
-    .player-icons {
-      color: $spotify;
-    }
+    background-color: $spotify;
 
     box tooltip {
       background-color: rgba($spotify, .5);
@@ -21,15 +20,18 @@ $player-manager-width: 100px;
   }
 
   &.chromium {
+    background-color: $vivaldi;
+  }
 
-    .player-icons {
-      color: $vivaldi;
+
+  .player-icons {
+    border-radius: 0.1em;
+    color: $bar-bg;
+    
+    &.none {
+      color: white;
     }
   }
-}
-
-.player-icons {
-  border-radius: 0.1em;
 }
 
 .player-selector {
