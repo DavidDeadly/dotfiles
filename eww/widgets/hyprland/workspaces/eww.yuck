@@ -21,10 +21,42 @@
 
 (deflisten window :initial "..." "sh ~/.config/eww/widgets/hyprland/workspaces/scripts/get-window-title")
 (defwidget window []
+  (info 
+    :color "#4e9dc2;"
+    :icon ""
+    :text {window}
+  )
+)
+
+(deflisten submap :initial "" "sh ~/.config/eww/widgets/hyprland/workspaces/scripts/get-submap")
+(defwidget submap []
+  (info
+    :color "#30cfbb"
+    :icon {
+      strlength(submap) == 0
+      ? ""
+      : submap == "Resize"
+      ? "󰙖"
+      : ""
+    }
+  )
+)
+
+
+(defwidget info [
+  icon
+  ?color
+  ?text
+]
   (label 
-    :class "title"
+    :class "info"
+    :style "color: ${color}"
     :limit-width 30
     :show-truncated true
-    :text " ${window}"
+    :text {
+      strlength(icon) != 0 && strlength(text) != 0
+      ? "${icon} ${text}"
+      : "${icon}"
+    }
   )
 )

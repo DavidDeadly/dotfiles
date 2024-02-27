@@ -16,30 +16,36 @@
               :anchor "top center"
   )
   (box
-    :height 40
     (box 
       :space-evenly false
       :spacing 5
-      :halign "start"
       (up-time)
       (box
         :class "group"
+        :style "background-color: ${
+          strlength(submap) == 0
+          ? "#02122d"
+          : submap == "Resize"
+          ? "#3e043b"
+          : "#382704"
+        }"
         :space-evenly false
         :spacing 15
+        (submap)
         (workspaces)
         (window)
       )
     )
-    (player-manager
-      :app-name "${players?.[player]?.name}"
-      :status "${players?.[player]?.status}"
-      :artist-song "${players?.[player]?.artist-song}"
+    (box
+      (player-manager
+        :app-name "${players?.[player]?.name}"
+        :status "${players?.[player]?.status}"
+        :artist-song "${players?.[player]?.artist-song}"
+      )
     )
     (box 
-      :halign "end"
       :space-evenly false
       :spacing 5
-      :valign "center"
       (system)
       (network)
       (time)
