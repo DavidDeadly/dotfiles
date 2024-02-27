@@ -196,19 +196,15 @@
 
 (defpoll network 
   :interval "10s"
-  :initial '{"front": "󰈂 Disconnect", "back": "Please connect 󱘖", "label": "The internet is waiting... "}'
+  :initial '{"label": "󰈂 Disconnect", "tooltip": "The internet is waiting... "}'
   `~/.config/eww/net.py`
 )
-(defvar fb-network 'front')
 (defwidget network []
-  (eventbox
-    :onclick {fb-network == 'front' ? "eww update fb-network=back" : "eww update fb-network=front"}
+  (box
     :tooltip {network.tooltip}
-    (box
-      :class "group network"
-      (label
-        :text {fb-network == 'front' ? network.front : network.back}
-      )
+    :class "group network"
+    (label
+      :text {network.label}
     )
   )
 )
