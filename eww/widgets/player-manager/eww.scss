@@ -8,15 +8,8 @@ $player-manager-width: 100px;
 .player-manager {
   min-width: $player-manager-width;
 
-  &.active {
-  }
-
   &.spotify {
     background-color: $spotify;
-
-    box tooltip {
-      background-color: rgba($spotify, .5);
-    }
   }
 
   &.chromium {
