@@ -51,7 +51,7 @@
   (label 
     :class "info"
     :style "color: ${color}"
-    :limit-width 30
+    :limit-width 20
     :show-truncated true
     :text {
       strlength(icon) != 0 && strlength(text) != 0
