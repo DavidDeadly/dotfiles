@@ -1,0 +1,233 @@
+(include "widgets/player-manager/eww.yuck")
+(include "widgets/time/eww.yuck")
+(include "widgets/hyprland/workspaces/eww.yuck")
+
+(defwindow bar
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore false
+  :exclusive true
+  :geometry (geometry
+              :x "0%"
+              :y "15px"
+              :width "98%"
+              :height "40px"
+              :anchor "top center"
+  )
+  (box
+    (left)
+    (center)
+    (right)
+  )
+)
+
+(defwidget left[]
+	(box 
+		:space-evenly false  
+    :halign "start"
+    :spacing 5
+    (up-time)
+    (box
+      :class "group"
+      :style "background-color: ${
+        strlength(submap) == 0
+        ? "#02122d"
+        : submap == "Resize"
+        ? "#3e043b"
+        : "#382704"
+      }"
+      :space-evenly false
+      :spacing 15
+      (submap)
+      (workspaces)
+      (window)
+    )
+  )
+)
+
+
+(defwidget center[]
+	(box 
+		:space-evenly false  
+    :halign "center"
+    (player-manager
+      :app-name "${players?.[player]?.name}"
+      :status "${players?.[player]?.status}"
+      :artist-song "${players?.[player]?.artist-song}"
+    )
+  )
+)
+
+(defwidget right[]
+  (box 
+		:space-evenly false  
+    :halign "end"
+    :spacing 5
+    (system)
+    (network)
+    (time)
+    (power-button)
+  )
+)
+
+(defpoll uptime :interval "5s"
+  :initial `uptime | awk -F'[ ,]+' '{print $4}'`
+  `uptime | awk -F'[ ,]+' '{print $4}'`
+)
+(defwidget up-time[]
+  (eventbox
+    :onclick "code ~"
+    :cursor "pointer"
+    (box
+      :class "group up-time"
+      (label :text "󰅭 ${uptime}")
+    )
+  )
+)
+
+(defwidget power-button []
+  (button
+    :valign "center"
+    :class "group power-button"
+    :onclick "~/.config/hypr/scripts/wlogout_launcher.sh"
+    (label :text "")
+  )
+)
+
+(defpoll volume :interval "24h" :initial 0 `pamixer --get-volume`)
+(defvar is-mute false)
+(defwidget system []
+  (box
+    :class "group"
+    :spacing 8
+    (progress-button
+      :icon {is-mute ? "󰝟" : ""}
+      :color {is-mute ? "#fbd8fa" : "#b213b0"}
+      :value volume
+      :icon-on-click "pamixer --toggle-mute && eww update is-mute=$(pamixer --get-mute)"
+      :on-click "~/.config/eww/launch-pavucontrol &"
+      :tooltip-progress "Volume on ${volume}%"
+      :tooltip-icon "Volume"
+    )
+    (progress-button
+      :icon "󰧑"
+      :color "#e0b089"
+      :value {round(EWW_RAM.used_mem_perc, 0)}
+      :tooltip-progress "Using ${round(EWW_RAM.used_mem_perc, 0)}% ram"
+      :tooltip-icon "Memory"
+    )
+    (battery
+      :battery {EWW_BATTERY.BAT1.capacity}
+      :status {EWW_BATTERY.BAT1.status}
+    )
+  )
+)
+
+(defwidget battery [
+    status
+    battery
+  ]
+  (progress-button
+    :icon {
+      status == 'Charging' ? "󰂄"
+      : battery <= 15 ? "󰂃"
+      : battery <= 30 ? "󰁼"
+      : battery <= 45 ? "󰁾"
+      : battery <= 60 ? "󰁿"
+      : battery <= 75 ? "󰂀"
+      : battery <= 95 ? "󰁹"
+      : "󰂅"
+    }
+    :class {
+      battery <= 15 && status != "Charging"
+        ? "blink" : ""
+    }
+    :color {
+      status == "Charging" ? "#1981e6"
+      : battery <= 15 ? "#f5000b"
+      : battery <= 30 ? "#fd5f02"
+      : "#1e9d9a"
+    }
+    :value battery
+    :tooltip-progress "Battery on ${battery}%"
+    :tooltip-icon "Battery"
+  )
+)
+
+(defwidget progress-button [
+    icon
+    value
+    color
+    tooltip-progress
+    tooltip-icon
+    ?class
+    ?on-click
+    ?icon-on-click
+  ]
+  (eventbox
+    :class "progress-box ${class}"
+    :onclick on-click
+    (box
+      (circular-progress
+        :class "progress"
+        :style "color: ${color}"
+        :start-at 75
+        :value value
+        :thickness 4
+        (label 
+          :class "value"
+          :tooltip tooltip-progress
+          :text value
+        )
+      )
+      (button
+        :onclick icon-on-click
+        (label
+          :class "icon"
+          :style "color: ${color}"
+          :tooltip tooltip-icon
+          :text icon
+        )
+      )
+    )
+  )
+)
+
+(defpoll network 
+  :interval "10s"
+  :initial '{"label": "󰈂 Disconnect", "tooltip": "The internet is waiting... "}'
+  `~/.config/eww/net.py`
+)
+(defwidget network []
+  (box
+    :tooltip {network.tooltip}
+    :class "group network"
+    (label
+      :text {network.label}
+    )
+  )
+)
+
+(defvar reveal-bright-slider false)
+(defvar brightness-percent 15)
+(defwidget bright []
+  (eventbox
+    :onhover "eww update reveal-bright-slider=true"
+    :onhoverlost "eww update reveal-bright-slider=false"
+    (box
+      :space-evenly false
+      :spacing 3 
+      (label :text "󰃠"
+        :class "bright-icon"
+        :tooltip "brightness"
+      )
+      ;; (revealer
+      ;;   :transition "slideright"
+      ;;   :reveal reveal-bright-slider 
+      ;;   :duration "350ms"
+      ;; )
+    )
+  )
+)
+

@@ -1,0 +1,64 @@
+
+// .player-icons {
+//   background-color: blue;
+// }
+
+$player-manager-width: 100px;
+
+.player-manager {
+  min-width: $player-manager-width;
+
+  &.spotify {
+    background-color: $spotify;
+  }
+
+  &.chromium {
+    background-color: $vivaldi;
+  }
+
+
+  .player-icons {
+    border-radius: 0.1em;
+    color: $bar-bg;
+    
+    &.none {
+      color: white;
+    }
+  }
+}
+
+.player-selector {
+  background-color: $groups-bg;
+  border-radius: $border-radius;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 16px;
+
+  label {
+    font-size: 1.2em;  
+  }
+
+  button {
+    color: black;
+    font-size: .8em;
+    border-radius: 5px;
+    padding: 8px;
+
+    &.spotify {
+      background-color: $spotify;
+    }
+
+    &.chromium {
+      background-color: $vivaldi;
+    }
+
+    &.selected {
+      opacity: 0.5;
+    }
+
+    &:hover {
+      background-color: $btn-hover;
+    }
+  }
+}
+

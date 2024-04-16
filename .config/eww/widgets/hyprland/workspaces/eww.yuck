@@ -1,0 +1,63 @@
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/widgets/hyprland/workspaces/scripts/get-workspaces")
+(deflisten current-workspace :initial "Shell" "bash ~/.config/eww/widgets/hyprland/workspaces/scripts/get-active-workspace")
+
+(defwidget workspaces []
+  (box 
+    :class "workspaces"
+    :spacing 5
+    (label :text "${workspaces}${current-workspace}" :visible false)
+    (for workspace in workspaces
+      (box
+        ;; (label :text "${workspace.name} == ${current-workspace}" :visible false)
+        (button
+          :onclick "hyprctl dispatch workspace ${workspace.name}"
+          :class "${workspace.name == current-workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"} "
+          "${workspace.icon} ${workspace.name}"
+        )
+      )
+    )
+  )
+)
+
+(deflisten window :initial "..." "sh ~/.config/eww/widgets/hyprland/workspaces/scripts/get-window-title")
+(defwidget window []
+  (info 
+    :color "#4e9dc2;"
+    :icon ""
+    :text {window}
+  )
+)
+
+(deflisten submap :initial "" "sh ~/.config/eww/widgets/hyprland/workspaces/scripts/get-submap")
+(defwidget submap []
+  (info
+    :color "#30cfbb"
+    :icon {
+      strlength(submap) == 0
+      ? ""
+      : submap == "Resize"
+      ? "󰙖"
+      : ""
+    }
+  )
+)
+
+
+(defwidget info [
+  icon
+  ?color
+  ?text
+]
+  (label 
+    :class "info"
+    :style "color: ${color}"
+    :limit-width 20
+    :show-truncated true
+    :text {
+      strlength(icon) != 0 && strlength(text) != 0
+      ? "${icon} ${text}"
+      : "${icon}"
+    }
+  )
+)
+

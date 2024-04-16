@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pavucontrol -t 3; eww update volume=$(pamixer --get-volume); eww update is-mute=$(pamixer --get-mute)

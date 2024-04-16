@@ -1,0 +1,3 @@
+(defvar keep-calendar false)
+(defvar time-or-date 'date')
+

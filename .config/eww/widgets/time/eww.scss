@@ -1,0 +1,16 @@
+.calendar {
+  background-color: #00C6BA;
+
+  .dd-calendar {
+    color: $general-text;
+    font-size: 18px;
+    background-color: rgba($bar-bg, .8);
+    padding: 8px;
+  }
+}
+
+.time {
+  min-width: 100px;
+  color: #f6c177;
+  font-weight: bold;
+}

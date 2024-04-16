@@ -1,0 +1,93 @@
+(include "widgets/player-manager/variables.yuck")
+
+(defwidget player-manager [app-name status artist-song]
+  (eventbox
+    :cursor "pointer"
+    :onclick "eww open player-selector"
+    (box
+      :class "group player-manager ${app-name}"
+      :tooltip artist-song
+      :halign "center"
+      :space-evenly true
+      (for action in player-actions
+        (player-button
+            :on-click "playerctl -p ${app-name} ${action?.name} || eww update player=none"
+            :disable {status == 'None'}
+            :size {
+              action?.name == "play-pause" ? 30
+              : 25
+            }
+            :icon {action?.icon?.[status]?:''}
+            :tooltip {
+              status == "Playing" ? "${action?.tooltip?:'Pause'}" 
+              : status == "Paused" ? "${action?.tooltip?:'Play'}"
+              : 'No player' 
+            }
+          )
+        )
+    )
+  )
+)
+
+(defwindow player-selector
+  :monitor 0
+  :stacking "fg"
+  :geometry (
+    geometry
+      :x "0%"
+      :y "20px"
+      :width "5%"
+      :height "30px"
+      :anchor "top center"
+  )
+  :windowtype "dialog"
+  :exclusive false
+  (eventbox
+    :onclick "eww close player-selector"
+    (box
+      :spacing 10
+      :halign "center"
+      :orientation "vertical"
+      :class "player-selector"
+      (label
+        :text "Controlled player"
+      )
+      (box
+        (for player_name in {jq(players, '[.[] | select(.name != "No player").name]')}
+          (button
+              :valign "center"
+              :halign "center"
+              :tooltip {
+                player == player_name ? "${player_name} is already selected"
+                : "select ${player_name} as the controlled player"
+              }
+              :class "${player_name} ${player == player_name ? 'selected' : ''}"
+              :active {player != player_name}
+              :onclick "eww update player='${player_name}'; eww close player-selector"
+              player_name
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget player-button [
+  on-click
+  icon
+  disable
+  tooltip
+  ?className
+  ?size
+]
+  (button 
+    :style "font-size:${size}px"
+    :tooltip tooltip
+    :active {!disable}
+    :class "player-icons ${className} ${disable ? 'none' : ''}"
+    :onclick on-click
+    (label
+      :text icon
+    )
+  )
+)

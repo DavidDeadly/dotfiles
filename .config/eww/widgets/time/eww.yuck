@@ -1,0 +1,43 @@
+(include "widgets/time/variables.yuck")
+
+(defwidget time []
+  (eventbox
+    :onhover { !keep-calendar ? "eww open calendar" : "" }
+    :onhoverlost { !keep-calendar ? "eww close calendar" : "" }
+    :onclick { keep-calendar ? "eww update keep-calendar=false" : "eww update keep-calendar=true" }
+    :onrightclick {
+      time-or-date == 'date' ? "eww update time-or-date='time'"
+      : "eww update time-or-date='date'"
+    }
+    (box
+      :class "group time"
+      (label 
+        :text {
+          time-or-date == 'date'
+          ? '  ${formattime(EWW_TIME, "%a %d ")}'
+          : "󰃭  ${formattime(EWW_TIME, "%H:%M")}"
+        }
+      )
+    )
+  )
+)
+
+(defwindow calendar
+  :monitor 0
+  :stacking "overlay"
+  :geometry (
+    geometry
+      :x "10px"
+      :y "20px"
+      :width "2%"
+      :height "30px"
+      :anchor "top right"
+  )
+  :windowtype "dialog"
+  :exclusive false
+    (calendar
+      :class "dd-calendar"
+      :show-week-numbers true
+  )
+)
+

@@ -1,0 +1,85 @@
+@import "variables.scss";
+@import "widgets/player-manager/eww.scss";
+@import "widgets/time/eww.scss";
+@import "widgets/hyprland/workspaces/eww.scss";
+
+* { all: unset; }
+
+.bar {
+  border-radius: 10px;
+  font-family: CaskaydiaCoveNerdFont;
+}
+
+.group {
+  background-color: $groups-bg;
+  border-radius: $border-radius;
+  padding: 5px 10px;
+}
+
+tooltip.background {
+    background-color: #0f0f17;
+    font-size: 18;
+    border-radius: 10px;
+    color: #bfc9db;
+}
+
+tooltip label {
+    margin: 6px;
+}
+
+.power-button {
+  border-radius: 50%;
+  color: #f5a500;
+  padding: 15px 20px;
+}
+
+.up-time {
+  font-weight: bold;
+  color: aqua;
+  border-radius: 0px $border-radius 0px;
+  background-color: #071f15;
+}
+
+.progress-box {
+  background-color: $groups-bg;
+	border-radius: $border-radius;
+
+  .progress {
+    background-color: #38384d;
+    border-radius: 10px;
+  }
+
+  .value {
+    font-size: 15px;
+    opacity: .5;
+    padding: 10px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+}
+
+.blink {
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.network {
+  color: #1ecbe1;
+  font-size: 15px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+

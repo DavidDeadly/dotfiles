@@ -1,0 +1,39 @@
+(defvar player "none")
+(defvar players-list '[]')
+(defpoll on-player-change :interval "2628000s"
+  `cat widgets/player-manager/scripts/handle_player_change.sh`
+)
+(deflisten players :initial "[]"
+  `widgets/player-manager/scripts/mediaplayer.py`
+)
+(defvar player-actions 
+  '[
+    {
+      "name": "previous",
+      "tooltip": "Previous song",
+      "icon": {
+        "Playing" : "󰙣",
+        "Paused": "󰙣",
+        "None": "󰙤"
+      }
+    },
+    {
+      "name": "play-pause",
+      "tooltip": "",
+      "icon": {
+        "Playing" : "",
+        "Paused": "",
+        "None": "󰝛"
+      }
+    },
+    {
+      "name": "next",
+      "tooltip": "Next song",
+      "icon": {
+        "Playing" : "󰙡",
+        "Paused": "󰙡",
+        "None": "󰙢"
+      }
+    }
+   ]'
+)
