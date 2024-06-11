@@ -103,37 +103,11 @@
   # $ nix search <package to search>
   environment.systemPackages = with pkgs; [
     home-manager
-    htop # resource manager
-    neovim # editor
     vivaldi # browser
-    swww # wallpaper-daemon
-    eww # widgets
-    mako # notication-daemon
-    ianny # breaks utility
-    kitty # terminal
-    zellij # multiplexer
-    oh-my-posh # terminal themes
-    wofi # launcher
-    swaylock-effects # locker
-    hyprlock # locker for hyprland
-    swayidle # idle daemon
-    hypridle # idle daemon for hyprland
-    wlogout # logout menu
-    playerctl # player service
-    brightnessctl # brightness service
-    xfce.thunar # file manager
-    networkmanagerapplet # network indicator
-    copyq # clipboard manager
-    hyprpicker # color picker
-    neofetch # system stats
-    grim # image graber
-    slurp # are selection
-    swappy # snapshots
-    wf-recorder # video recorder
     #ly # display-manager
 
     # deps
-    libnotify
+    libnotify # notifications
   ];
 
   environment.sessionVariables = {
@@ -156,13 +130,11 @@
   # };
 
   programs = {
+    zsh.enable = true;
     hyprland = {
       enable = true;
       xwayland.enable = true;
     };
-
-    zsh.enable = true;
-    git.enable = true;
   };
 
   # List services that you want to enable:

@@ -15,6 +15,25 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    ianny # breaks utility
+    neofetch # system stats
+    kitty # terminal
+    playerctl # media player
+    grim # image graber
+    slurp # are selection
+    swappy # snapshots
+    wf-recorder # video recorder
+    brightnessctl # brightness service
+    networkmanagerapplet # network indicator
+    hyprpicker # color picker
+    swww # wallpaper-daemon
+    xfce.thunar # file manager
+    swaylock-effects # locker
+    hyprlock # locker for hyprland
+    swayidle # idle daemon
+    hypridle # idle daemon for hyprland
+
+    nodejs_22
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
@@ -38,6 +57,7 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
+    ".config/io.github.zefr0x.ianny/config.toml".source = ./.config/io.github.zefr0x.ianny/config.toml;
     ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
   };
 
@@ -61,9 +81,26 @@ in
     EDITOR = "nvim";
   };
 
+  services = {
+    mako.enable = true;
+    copyq.enable = true;
+  };
+
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
+    wlogout.enable = true;
+    zellij.enable = true;
+    wofi.enable = true;
+    htop.enable = true;
+    # kitty.enable = true;
+    lazygit.enable = true;
+    gh.enable = true;
+    eww  = {
+      enable = true;
+      configDir = ./.config/eww;
+    };
 
     zsh = {
       enable = true;
@@ -72,14 +109,14 @@ in
       syntaxHighlighting.enable = true;
       shellAliases = {
         ll = "ls -l";
-	".." = "cd ..";
-	dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
+        ".." = "cd ..";
+	      dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
       oh-my-zsh = {
         enable = true;
         plugins = [
           "git"
-  	  "sudo"
+          "sudo"
         ];
       };
     };
@@ -91,26 +128,28 @@ in
       settings = builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${HOME}/.dotfiles/.config/oh-my-posh/daviddeadly.omp.json"));
     };
 
-    lazygit = {
-      enable = true;
-    };
-
     git = {
       enable = true;
       userName = "DavidDeadly";
       userEmail = "jdrueda513@gmail.com";
-      aliases = {
-        pu = "push";
-        co = "checkout";
-        cm = "commit";
-      };
       extraConfig = {
         init.defaultBranch = "main";
-	pull.rebase = true;
+	      pull.rebase = true;
       };
     };
 
-    gh.enable = true;
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+
+      extraPackages = with pkgs; [
+        gcc
+        wl-clipboard
+	      luajitPackages.lua-lsp
+      ];
+    };
   };
 
   gtk = {

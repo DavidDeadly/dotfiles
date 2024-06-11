@@ -10,7 +10,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = {self, nixpkgs, home-manager, ...}: 
+  outputs = {self, nixpkgs, ...}@inputs: 
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -19,18 +19,18 @@
     nixosConfigurations = {
       davnix = lib.nixosSystem {
         inherit system;
-	modules = [
-	  ./configuration.nix
-	];
+        modules = [
+          ./configuration.nix
+        ];
       };
     };
 
     homeConfigurations = {
-      daviddeadly = home-manager.lib.homeManagerConfiguration {
+      daviddeadly = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-	modules = [
-	  ./home.nix
-	];
+        modules = [
+          ./home.nix
+        ];
       };
     };
   };
