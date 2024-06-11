@@ -14,20 +14,11 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
+  home.packages = with pkgs; [
+    # Maybe you want to install Nerd Fonts with a limited number of fonts?
+    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
+    # # configuration.
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -46,6 +37,8 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
   };
 
   # Home Manager can also manage your environment variables through
@@ -76,11 +69,30 @@ in
       enable = true;
       autosuggestion.enable = true;
       enableCompletion = true;
+      syntaxHighlighting.enable = true;
       shellAliases = {
         ll = "ls -l";
 	".." = "cd ..";
 	dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git"
+  	  "sudo"
+        ];
+      };
+    };
+
+    oh-my-posh = {
+      enable = true;
+      enableZshIntegration = true;
+      useTheme = "catppuccin_macchiato";
+      settings = builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${HOME}/.dotfiles/.config/oh-my-posh/daviddeadly.omp.json"));
+    };
+
+    lazygit = {
+      enable = true;
     };
 
     git = {
@@ -112,8 +124,9 @@ in
   #   enable = true;
   #   package = pkgs.hyprland;
   #   xwayland.enable = true;
+  #   systemd.enable = true;
 
-  #   #systemd.enable = true;
+  #   settings = {
+  #   };
   # };
-
 }
