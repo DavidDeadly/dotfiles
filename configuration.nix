@@ -71,9 +71,11 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
 
@@ -89,7 +91,7 @@
   users.users.daviddeadly = {
     isNormalUser = true;
     description = "daviddeadly";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio"];
     shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird
@@ -114,12 +116,9 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #   ];
-  # };
+  xdg.portal = {
+    enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

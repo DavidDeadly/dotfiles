@@ -18,6 +18,7 @@ in
     ianny # breaks utility
     neofetch # system stats
     playerctl # media player
+    pavucontrol # audio player
     grim # image graber
     slurp # are selection
     swappy # snapshots
@@ -34,6 +35,7 @@ in
 
     kitty # terminal
 
+    luajit
     nodejs_22
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
