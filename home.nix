@@ -17,7 +17,6 @@ in
   home.packages = with pkgs; [
     ianny # breaks utility
     neofetch # system stats
-    kitty # terminal
     playerctl # media player
     grim # image graber
     slurp # are selection
@@ -32,6 +31,8 @@ in
     hyprlock # locker for hyprland
     swayidle # idle daemon
     hypridle # idle daemon for hyprland
+
+    kitty # terminal
 
     nodejs_22
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
@@ -57,6 +58,15 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
+    # wofi
+    ".config/wofi/config".source = ./.config/wofi/config;
+    ".config/wofi/style.css".source = ./.config/wofi/style.css;
+
+    ".confg/mako/config".source = ./.config/mako/config;
+
+    ".config/zellij/config.kdl".source = ./.config/zellij/config.kdl;
+
+    ".config/swaylock/config".source = ./.config/swaylock/config;
     ".config/io.github.zefr0x.ianny/config.toml".source = ./.config/io.github.zefr0x.ianny/config.toml;
     ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
   };
