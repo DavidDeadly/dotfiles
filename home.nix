@@ -17,6 +17,7 @@ in
   home.packages = with pkgs; [
     ianny # breaks utility
     neofetch # system stats
+    playerctl # media player
     pavucontrol # audio player
     wl-clipboard # clipboard manager
     grim # image graber
@@ -45,7 +46,7 @@ in
     # langs
     luajit
     nodejs_22
-    python3
+    # python3
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
@@ -105,6 +106,7 @@ in
   services = {
     mako.enable = true;
     copyq.enable = true;
+    playerctld.enable = true;
   };
 
   programs = {
@@ -168,8 +170,6 @@ in
 
       extraPackages = with pkgs; [
         gcc
-        wl-clipboard
-	      luajitPackages.lua-lsp
       ];
     };
   };

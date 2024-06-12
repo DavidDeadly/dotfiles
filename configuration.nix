@@ -100,7 +100,7 @@
     home-manager
 
     # deps
-    socat # to read hyprland socket
+    socat # hyprland socket
     libnotify # notifications
     libsForQt5.qt5.qtquickcontrols2 # qt5 widgets for sddm
     libsForQt5.qt5.qtgraphicaleffects # qt5 widgets for sddm
