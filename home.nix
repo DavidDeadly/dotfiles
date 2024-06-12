@@ -43,10 +43,6 @@ in
 
     kitty # terminal
 
-    # langs
-    luajit
-    nodejs_22
-    # python3
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
@@ -167,6 +163,8 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+
+      withNodeJs = true;
 
       extraPackages = with pkgs; [
         gcc
