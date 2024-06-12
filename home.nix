@@ -167,9 +167,17 @@ in
 
   gtk = {
     enable = true;
-    theme.name = "adw-gtk3";
-    cursorTheme.name = "Bibata-Modern-Ice";
-    iconTheme.name = "GruvboxPlus";
+    # theme.name = "adw-gtk3";
+    # cursorTheme.name = "Bibata-Modern-Ice";
+    # iconTheme.name = "GruvboxPlus";
+     
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
 
   qt = {
