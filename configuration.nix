@@ -87,7 +87,7 @@
     extraGroups = [ "networkmanager" "wheel" "audio"];
     shell = pkgs.zsh;
     packages = with pkgs; [
-    #  thunderbird
+      vivaldi # browser
     ];
   };
 
@@ -98,9 +98,9 @@
   # $ nix search <package to search>
   environment.systemPackages = with pkgs; [
     home-manager
-    vivaldi # browser
 
     # deps
+    socat # to read hyprland socket
     libnotify # notifications
     libsForQt5.qt5.qtquickcontrols2 # qt5 widgets for sddm
     libsForQt5.qt5.qtgraphicaleffects # qt5 widgets for sddm

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 spaces (){
   hyprctl workspaces -j | jq -Mc 'map({name: .name, icon: (if .name == "Shell" then "" elif .name == "Web" then "" else "󰎔" end), windows: .windows})'

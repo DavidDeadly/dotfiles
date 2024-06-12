@@ -17,11 +17,10 @@ in
   home.packages = with pkgs; [
     ianny # breaks utility
     neofetch # system stats
-    playerctl # media player
     pavucontrol # audio player
     wl-clipboard # clipboard manager
     grim # image graber
-    slurp # are selection
+    slurp # area selection
     swappy # snapshots
     wf-recorder # video recorder
     brightnessctl # brightness service
@@ -33,11 +32,20 @@ in
     hyprlock # locker for hyprland
     swayidle # idle daemon
     hypridle # idle daemon for hyprland
+    jq # json parser
+    ripgrep # better grep
+    rm-improved # better rm
+    fd # better find
+    fzf # fuzzy finder
+    bat # better cat
+    pamixer # volume control
 
     kitty # terminal
 
+    # langs
     luajit
     nodejs_22
+    python3
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
@@ -123,7 +131,8 @@ in
       shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
-	      dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
+        rm = "rip";
+	      # dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
       oh-my-zsh = {
         enable = true;

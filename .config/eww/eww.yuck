@@ -17,7 +17,7 @@
   )
   (box
     (left)
-    (center)
+    ;; (center)
     (right)
   )
 )
