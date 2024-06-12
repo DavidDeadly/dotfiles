@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs,... }:
 let
   USER = "daviddeadly";
   HOME = "/home/${USER}";
@@ -27,7 +27,7 @@ in
     brightnessctl # brightness service
     networkmanagerapplet # network indicator
     hyprpicker # color picker
-    swww # wallpaper-daemon
+    inputs.swww.packages.${system}.swww # wallpaper-daemon
     xfce.thunar # file manager
     swaylock-effects # locker
     hyprlock # locker for hyprland
@@ -42,7 +42,10 @@ in
     pamixer # volume control
 
     kitty # terminal
+    mako # notification daemon
 
+    # langs
+    python3
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
     (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     # # You can also create simple shell scripts directly inside your
@@ -70,7 +73,7 @@ in
     ".config/wofi/config".source = ./.config/wofi/config;
     ".config/wofi/style.css".source = ./.config/wofi/style.css;
 
-    ".confg/mako/config".source = ./.config/mako/config;
+    ".config/mako/config".source = ./.config/mako/config;
 
     ".config/zellij/config.kdl".source = ./.config/zellij/config.kdl;
 
@@ -100,7 +103,7 @@ in
   };
 
   services = {
-    mako.enable = true;
+    # mako.enable = true;
     copyq.enable = true;
     playerctld.enable = true;
   };

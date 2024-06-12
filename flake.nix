@@ -8,6 +8,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    swww.url = "github:LGFae/swww";
   };
 
   outputs = {self, nixpkgs, ...}@inputs: 
@@ -28,6 +30,9 @@
     homeConfigurations = {
       daviddeadly = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+
+        extraSpecialArgs = { inherit inputs; };
+
         modules = [
           ./home.nix
         ];
