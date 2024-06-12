@@ -19,6 +19,7 @@ in
     neofetch # system stats
     playerctl # media player
     pavucontrol # audio player
+    wl-clipboard # clipboard manager
     grim # image graber
     slurp # are selection
     swappy # snapshots
@@ -169,6 +170,12 @@ in
     theme.name = "adw-gtk3";
     cursorTheme.name = "Bibata-Modern-Ice";
     iconTheme.name = "GruvboxPlus";
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style.name = "adwaita-dark";
   };
 
   # wayland.windowManager.hyprland = {

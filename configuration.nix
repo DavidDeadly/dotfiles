@@ -39,18 +39,11 @@
     LC_TIME = "es_CO.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "latam";
-      variant = "";
+  services = {
+    displayManager = {
+      sddm.wayland.enable = true;
+      sddm.enable = true;
+      sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
     };
   };
 
@@ -106,10 +99,11 @@
   environment.systemPackages = with pkgs; [
     home-manager
     vivaldi # browser
-    #ly # display-manager
 
     # deps
     libnotify # notifications
+    libsForQt5.qt5.qtquickcontrols2 # qt5 widgets for sddm
+    libsForQt5.qt5.qtgraphicaleffects # qt5 widgets for sddm
   ];
 
   environment.sessionVariables = {
