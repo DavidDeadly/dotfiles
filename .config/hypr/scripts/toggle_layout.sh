@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 init="${1:-false}"
 file="$HOME/.config/hypr/current_layout"
