@@ -1,4 +1,4 @@
-{ config, pkgs, inputs,... }:
+{ config, pkgs, inputs, ... }:
 let
   USER = "daviddeadly";
   HOME = "/home/${USER}";
@@ -40,6 +40,7 @@ in
     fzf # fuzzy finder
     bat # better cat
     pamixer # volume control
+    asusctl # power management
 
     kitty # terminal
     mako # notification daemon
@@ -69,17 +70,13 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    # wofi
-    ".config/wofi/config".source = ./.config/wofi/config;
-    ".config/wofi/style.css".source = ./.config/wofi/style.css;
-
-    ".config/mako/config".source = ./.config/mako/config;
-
-    ".config/zellij/config.kdl".source = ./.config/zellij/config.kdl;
-
-    ".config/swaylock/config".source = ./.config/swaylock/config;
-    ".config/io.github.zefr0x.ianny/config.toml".source = ./.config/io.github.zefr0x.ianny/config.toml;
-    ".config/kitty/kitty.conf".source = ./.config/kitty/kitty.conf;
+    # "./config/nvim".source = ./.config/nvim;
+    ".config/wofi".source = ./.config/wofi;
+    ".config/mako".source = ./.config/mako;
+    ".config/zellij".source = ./.config/zellij;
+    ".config/swaylock".source = ./.config/swaylock;
+    ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
+    ".config/kitty".source = ./.config/kitty;
   };
 
   # Home Manager can also manage your environment variables through
@@ -119,7 +116,7 @@ in
     # kitty.enable = true;
     lazygit.enable = true;
     gh.enable = true;
-    eww  = {
+    eww = {
       enable = true;
       configDir = ./.config/eww;
     };
@@ -133,7 +130,7 @@ in
         ll = "ls -l";
         ".." = "cd ..";
         rm = "rip";
-	      # dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
+        # dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
       oh-my-zsh = {
         enable = true;
@@ -157,7 +154,7 @@ in
       userEmail = "jdrueda513@gmail.com";
       extraConfig = {
         init.defaultBranch = "main";
-	      pull.rebase = true;
+        pull.rebase = true;
       };
     };
 
@@ -166,11 +163,13 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+      defaultEditor = true;
 
       withNodeJs = true;
 
       extraPackages = with pkgs; [
         gcc
+        cargo
       ];
     };
   };
@@ -180,7 +179,7 @@ in
     # theme.name = "adw-gtk3";
     # cursorTheme.name = "Bibata-Modern-Ice";
     # iconTheme.name = "GruvboxPlus";
-     
+
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };

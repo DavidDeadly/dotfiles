@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718141734,
-        "narHash": "sha256-cA+6l8ZCZ7MXGijVuY/1f55+wF/RT4PlTR9+g4bx86w=",
+        "lastModified": 1718243258,
+        "narHash": "sha256-abBpj2VU8p6qlRzTU8o22q68MmOaZ4v8zZ4UlYl5YRU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "892f76bd0aa09a0f7f73eb41834b8a904b6d0fad",
+        "rev": "8d5e27b4807d25308dfe369d5a923d87e7dbfda3",
         "type": "github"
       },
       "original": {
@@ -76,11 +76,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1718139749,
-        "narHash": "sha256-m6L3GOTGsji8QPlUiJNzamhbSHGlK+JTTJoD/f8fikw=",
+        "lastModified": 1718313803,
+        "narHash": "sha256-OpXugBH3tF9Jc3Vt0gnqhdQvlNmte7Km1SmyIDo1G3Y=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "8412ffcc42012888757cd00a004871e8bc353cf2",
+        "rev": "8055b1c00a102f5419e40f5eddfb6ee8be693f33",
         "type": "github"
       },
       "original": {
@@ -213,11 +213,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1717974879,
-        "narHash": "sha256-GTO3C88+5DX171F/gVS3Qga/hOs/eRMxPFpiHq2t+D8=",
+        "lastModified": 1718160348,
+        "narHash": "sha256-9YrUjdztqi4Gz8n3mBuqvCkMo4ojrA6nASwyIKWMpus=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c7b821ba2e1e635ba5a76d299af62821cbcb09f3",
+        "rev": "57d6973abba7ea108bac64ae7629e7431e0199b6",
         "type": "github"
       },
       "original": {
@@ -258,11 +258,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1718116453,
-        "narHash": "sha256-IiPuEeEA24iW/H3eTHITj+YXTk3pE5x+rOJgXL0TYhI=",
+        "lastModified": 1718222815,
+        "narHash": "sha256-yiNGAhbExg/tJ3X1Novs5qJETSW7X5xcguteCxxnY9w=",
         "owner": "LGFae",
         "repo": "swww",
-        "rev": "316fa3974107071e8734a7daf38f12b4c2938e18",
+        "rev": "57f533741cba6353fb36f677181466012d3d393c",
         "type": "github"
       },
       "original": {
