@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, pkgs-unstable, inputs, ... }:
 let
   USER = "daviddeadly";
   HOME = "/home/${USER}";
@@ -13,8 +13,7 @@ in
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # $ nix search <package to search>
   home.packages = with pkgs; [
     vivaldi # browser
     ianny # breaks utility
@@ -30,6 +29,7 @@ in
     networkmanagerapplet # network indicator
     hyprpicker # color picker
     inputs.swww.packages.${system}.swww # wallpaper-daemon
+    pkgs-unstable.neovim # neovim latest
     xfce.thunar # file manager
     swaylock-effects # locker
     hyprlock # locker for hyprland
@@ -47,32 +47,16 @@ in
     kitty # terminal
     mako # notification daemon
 
-    # langs
-    python3
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
-    (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-    # # You can also create simple shell scripts directly inside your
-    # # configuration.
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    (nerdfonts.override {
+      fonts = [ "CascadiaCode" ];
+    })
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
+  # Home Manager is pretty good at managing dotfiles
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-
-    # "./config/nvim".source = ./.config/nvim;
+    #? doens't work with the .config/nvim git submodule
+    ".config/nvim".source = ~/nvim;
     ".config/wofi".source = ./.config/wofi;
     ".config/mako".source = ./.config/mako;
     ".config/zellij".source = ./.config/zellij;
@@ -81,22 +65,6 @@ in
     ".config/kitty".source = ./.config/kitty;
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/daviddeadly/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -132,8 +100,14 @@ in
         ll = "ls -l";
         ".." = "cd ..";
         rm = "rip";
+
+        vi = "nvim";
+        vim = "nvim";
+        vimdiff = "nvim -d";
+
         # dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
+
       oh-my-zsh = {
         enable = true;
         plugins = [
@@ -162,21 +136,6 @@ in
         init.defaultBranch = "main";
         pull.rebase = true;
       };
-    };
-
-    neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      defaultEditor = true;
-
-      withNodeJs = true;
-
-      extraPackages = with pkgs; [
-        gcc
-        cargo
-      ];
     };
   };
 

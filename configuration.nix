@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -76,7 +76,7 @@
     displayManager = {
       sddm.wayland.enable = true;
       sddm.enable = true;
-      sddm.theme = import ./sddm-theme.nix { inherit pkgs; };
+      sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
     };
 
     # Enable CUPS to print documents.
@@ -109,6 +109,12 @@
   # $ nix search <package to search>
   environment.systemPackages = with pkgs; [
     home-manager
+
+    # langs
+    nodejs
+    python3
+    gcc
+    cargo
 
     # deps
     socat # socket utility
