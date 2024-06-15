@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   USER = "daviddeadly";
   HOME = "/home/${USER}";
@@ -12,9 +12,11 @@ in
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
+  nixpkgs.config.allowUnfree = true;
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    vivaldi # browser
     ianny # breaks utility
     neofetch # system stats
     playerctl # media player
@@ -145,7 +147,11 @@ in
       enable = true;
       enableZshIntegration = true;
       useTheme = "catppuccin_macchiato";
-      settings = builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${HOME}/.dotfiles/.config/oh-my-posh/daviddeadly.omp.json"));
+      settings = builtins.fromJSON (
+        builtins.unsafeDiscardStringContext (
+          builtins.readFile "${HOME}/.dotfiles/.config/oh-my-posh/daviddeadly.omp.json"
+        )
+      );
     };
 
     git = {
