@@ -42,7 +42,6 @@ in
     rm-improved # better rm
     fd # better find
     fzf # fuzzy finder
-    bat # better cat
     pamixer # volume control
     asusctl # power management
 
@@ -56,6 +55,7 @@ in
   ];
 
   # Home Manager is pretty good at managing dotfiles
+  xdg.configFile."lf/icons".source = ./.config/lf/icons;
   home.file = {
     ".config/wofi".source = ./.config/wofi;
     ".config/mako".source = ./.config/mako;
@@ -96,6 +96,11 @@ in
       configDir = ./.config/eww;
     };
 
+    bat = {
+      enable = true;
+      config.theme = "OneHalfDark";
+    };
+
     zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -104,7 +109,6 @@ in
       shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
-        rm = "rip";
 
         vi = "nvim";
         vim = "nvim";
@@ -155,6 +159,65 @@ in
         nodejs
         cargo
       ];
+    };
+
+    lf = {
+      enable = true;
+
+      settings = {
+        preview = true;
+        icons = true;
+        drawbox = true;
+        ignorecase = true;
+      };
+
+      commands = {
+        dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
+        editor-open = ''$$EDITOR $f'';
+        preview = ''''$${pkgs.bat}/bin/bat --paging=always "$f"'';
+        mkdir = ''
+          ''${{
+            printf "\nDirectory name: "
+            read DIR
+            mkdir -p $DIR
+          }}
+        '';
+      };
+
+      keybindings = {
+        "<c-c>" = "exit";
+        "." = "set hidden!";
+        "<enter>" = "open";
+        c = "mkdir";
+        do = "dragon-out";
+        ee = "editor-open";
+        V = "preview";
+      };
+
+
+      previewer.source =
+        pkgs.writeShellScript "pv.sh" ''
+          file=$1
+          w=$2
+          h=$3
+          x=$4
+          y=$5
+        
+          if [[ "$( ${pkgs.file}/bin/file -Lb --mime-type "$file")" =~ ^image ]]; then
+              ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+              exit 1
+          fi
+        
+          ${pkgs.pistol}/bin/pistol "$file"
+        '';
+
+      extraConfig =
+        let
+          cleaner = pkgs.writeShellScriptBin "clean.sh" ''
+            ${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
+          '';
+        in
+        ''set cleaner ${cleaner}/bin/clean.sh'';
     };
   };
 
