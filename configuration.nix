@@ -74,9 +74,12 @@
 
   services = {
     displayManager = {
-      sddm.wayland.enable = true;
-      sddm.enable = true;
-      sddm.theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+        theme = "catppuccin-mocha";
+        package = pkgs.kdePackages.sddm;
+      };
     };
 
     # Enable CUPS to print documents.
@@ -110,16 +113,18 @@
   environment.systemPackages = with pkgs; [
     home-manager
 
-    # langs
-    nodejs
-    python3
-    gcc
-    cargo
+    (pkgs.catppuccin-sddm.override {
+      flavor = "mocha";
+      fontSize = "12";
+      background = ./images/mountain-view.png;
+      loginBackground = true;
+    })
 
+    # langs
+    python3
+    #
     # deps
     socat # socket utility
     libnotify # notifications
-    libsForQt5.qt5.qtquickcontrols2 # qt5 widgets for sddm
-    libsForQt5.qt5.qtgraphicaleffects # qt5 widgets for sddm
   ];
 }

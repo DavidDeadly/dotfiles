@@ -2,9 +2,11 @@
 let
   USER = "daviddeadly";
   HOME = "/home/${USER}";
+  icons-theme = import ./icons-theme.nix { inherit pkgs; };
+  gtk-theme = import ./gtk-theme.nix { inherit pkgs; };
 in
 {
-  home.username = USER;
+  home. username = USER;
   home.homeDirectory = HOME;
 
   # You should not change this value, even if you update Home Manager. If you do
@@ -34,6 +36,7 @@ in
     hyprlock # locker for hyprland
     swayidle # idle daemon
     hypridle # idle daemon for hyprland
+    hyprcursor # cursor theme manager
     jq # json parser
     ripgrep # better grep
     rm-improved # better rm
@@ -60,6 +63,11 @@ in
     ".config/swaylock".source = ./.config/swaylock;
     ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
     ".config/kitty".source = ./.config/kitty;
+  };
+
+  home.pointerCursor = {
+    name = "Catppuccin-Mocha-Sky-Cursors";
+    package = pkgs.catppuccin-cursors.mochaSky;
   };
 
   home.sessionVariables = {
@@ -152,9 +160,15 @@ in
 
   gtk = {
     enable = true;
-    # theme.name = "adw-gtk3";
-    # cursorTheme.name = "Bibata-Modern-Ice";
-    # iconTheme.name = "GruvboxPlus";
+    theme = {
+      package = gtk-theme;
+      name = "Infinity-GTK";
+    };
+
+    iconTheme = {
+      package = icons-theme;
+      name = "vivid-glasy-dark";
+    };
 
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
