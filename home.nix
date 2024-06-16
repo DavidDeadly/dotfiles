@@ -58,7 +58,7 @@ in
     ".config/zellij".source = ./.config/zellij;
     ".config/swaylock".source = ./.config/swaylock;
     ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
-    ".config/kitty".source = ./.config/kitty;
+    # ".config/kitty".source = ./.config/kitty;
   };
 
   home.pointerCursor = {
@@ -84,9 +84,80 @@ in
     zellij.enable = true;
     wofi.enable = true;
     htop.enable = true;
-    # kitty.enable = true;
     lazygit.enable = true;
     gh.enable = true;
+
+    kitty = {
+      enable = true;
+      theme = "Catppuccin-Mocha";
+      shellIntegration.enableZshIntegration = true;
+
+      settings = {
+        font_size = 13;
+        font_family = "CaskaydiaCove NFM Regular ";
+        bold_font = "CaskaydiaCove NFM Bold ";
+        italic_font = "CaskaydiaCove NFM Italic ";
+        bold_italic_font = "CaskaydiaCove NFM Bold Italic ";
+
+        disable_ligatures = "never";
+        background_tint = "0.9";
+        background_image = "${./images/solitude.png}";
+        background_image_layout = "scaled";
+
+        cursor_shape = "block";
+        cursor_beam_thickness = "1.5";
+        cursor_underline_thickness = "2.0";
+        cursor_blink_interval = "-1";
+        cursor_stop_blinking_after = "15.0";
+        mouse_hide_wait = "3.0";
+
+        scrollback_lines = 2000;
+
+        url_style = "curly";
+        open_url_with = "default";
+        url_prefixes = "file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh";
+        detect_urls = true;
+
+        enabled_layouts = "*";
+        hide_window_decorations = true;
+
+        tab_bar_style = "powerline";
+        tab_powerline_style = "angled";
+        tab_activity_symbol = "🔥";
+        tab_title_template = "{index} {activity_symbol}{title[title.find(':')+1:]}";
+        active_tab_font_style = "bold-italic";
+        inactive_tab_font_style = "normal";
+      };
+
+      keybindings = {
+        "alt+1" = "goto_tab 1";
+        "alt+2" = "goto_tab 2";
+        "alt+3" = "goto_tab 3";
+        "alt+4" = "goto_tab 4";
+        "alt+5" = "goto_tab 5";
+        "alt+6" = "goto_tab 6";
+        "alt+7" = "goto_tab 7";
+        "alt+8" = "goto_tab 8";
+        "alt+9" = "goto_tab 9";
+
+        "ctrl+minus" = "change_font_size all -1.0";
+        "ctrl+plus" = "change_font_size all +1.0";
+        "ctrl+shift+backspace" = "change_font_size all 0";
+
+        "shift+alt+t" = "set_tab_title";
+        "ctrl+shift+." = "move_tab_forward";
+        "ctrl+shift+," = "move_tab_backward";
+
+        "ctrl+f2" = "launch --cwd=current";
+        "ctrl+f3" = "launch --cwd=current --type=tab";
+
+        "f4" = "toggle_layout stack";
+
+        "ctrl+shift+z" = "scroll_to_prompt -1";
+        "ctrl+shift+x" = "scroll_to_prompt 1";
+      };
+    };
+
     eww = {
       enable = true;
       configDir = ./.config/eww;
@@ -212,9 +283,10 @@ in
       };
 
       commands = {
-        dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
+        dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx "'';
         editor-open = ''$$EDITOR $f'';
-        preview = ''''$${pkgs.bat}/bin/bat --paging=always "$f"'';
+        preview = ''''$${pkgs.bat}/bin/bat --paging=always "$
+          f "'';
         mkdir = ''
           ''${{
             printf "\nDirectory name: "
@@ -298,3 +370,4 @@ in
   #   };
   # };
 }
+
