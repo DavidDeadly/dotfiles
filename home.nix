@@ -6,63 +6,65 @@ let
   gtk-theme = import ./gtk-theme.nix { inherit pkgs; };
 in
 {
-  home. username = USER;
-  home.homeDirectory = HOME;
-
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
-
   nixpkgs.config.allowUnfree = true;
-  # $ nix search <package to search>
-  home.packages = with pkgs; [
-    vivaldi # browser
-    ianny # breaks utility
-    neofetch # system stats
-    playerctl # media player
-    pavucontrol # audio player
-    wl-clipboard # clipboard manager
-    grim # image graber
-    slurp # area selection
-    swappy # snapshots
-    wf-recorder # video recorder
-    brightnessctl # brightness service
-    networkmanagerapplet # network indicator
-    hyprpicker # color picker
-    inputs.swww.packages.${system}.swww # wallpaper-daemon
-    xfce.thunar # file manager
-    swaylock-effects # locker
-    hyprlock # locker for hyprland
-    swayidle # idle daemon
-    hypridle # idle daemon for hyprland
-    hyprcursor # cursor theme manager
-    jq # json parser
-    rm-improved # better rm
-    pamixer # volume control
 
-    # Maybe you want to install Nerd Fonts with a limited number of fonts?
-    (nerdfonts.override {
-      fonts = [ "CascadiaCode" ];
-    })
-  ];
+  home = {
+    username = USER;
+    homeDirectory = HOME;
 
-  # Home Manager is pretty good at managing dotfiles
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    stateVersion = "23.11"; # Please read the comment before changing.
+
+    pointerCursor = {
+      name = "Catppuccin-Mocha-Sky-Cursors";
+      package = pkgs.catppuccin-cursors.mochaSky;
+    };
+
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
+
+    # $ nix search <package to search>
+    packages = with pkgs; [
+      vivaldi # browser
+      ianny # breaks utility
+      neofetch # system stats
+      playerctl # media player
+      pavucontrol # audio player
+      wl-clipboard # clipboard manager
+      grim # image graber
+      slurp # area selection
+      swappy # snapshots
+      wf-recorder # video recorder
+      brightnessctl # brightness service
+      networkmanagerapplet # network indicator
+      hyprpicker # color picker
+      inputs.swww.packages.${system}.swww # wallpaper-daemon
+      xfce.thunar # file manager
+      swayidle # idle daemon
+      hypridle # idle daemon for hyprland
+      hyprcursor # cursor theme manager
+      jq # json parser
+      rm-improved # better rm
+      pamixer # volume control
+
+      # Maybe you want to install Nerd Fonts with a limited number of fonts?
+      (nerdfonts.override {
+        fonts = [ "CascadiaCode" ];
+      })
+    ];
+
+    # Home Manager is pretty good at managing dotfiles
+    file = {
+      ".config/zellij".source = ./.config/zellij;
+      ".config/wlogout/icons".source = ./.config/wlogout/icons;
+      ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
+    };
+  };
+
   xdg.configFile."lf/icons".source = ./.config/lf/icons;
-  home.file = {
-    ".config/zellij".source = ./.config/zellij;
-    ".config/swaylock".source = ./.config/swaylock;
-    ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
-  };
-
-  home.pointerCursor = {
-    name = "Catppuccin-Mocha-Sky-Cursors";
-    package = pkgs.catppuccin-cursors.mochaSky;
-  };
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
 
   services = {
     copyq.enable = true;
@@ -124,11 +126,182 @@ in
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    wlogout.enable = true;
     zellij.enable = true;
     htop.enable = true;
     lazygit.enable = true;
     gh.enable = true;
+
+    wlogout = {
+      enable = true;
+
+      layout = [
+        {
+          label = "lock";
+          action = "hyprlock -q";
+          text = "Lock";
+          keybind = "l";
+        }
+        {
+          label = "logout";
+          action = "hyprctl dispatch exit 0";
+          text = "Logout";
+          keybind = "e";
+        }
+        {
+          label = "shutdown";
+          action = "systemctl poweroff";
+          text = "Shutdown";
+          keybind = "s";
+        }
+        {
+          label = "reboot";
+          action = "systemctl reboot";
+          text = "Reboot";
+          keybind = "r";
+        }
+        {
+          label = "suspend";
+          action = "hyprlock --immediate -q && systemctl suspend";
+          text = "Suspend";
+          keybind = "u";
+        }
+      ];
+
+      style = ''
+        window {
+          font-family: CaskaydiaCove Nerd Font, monospace;
+          font-size: 12pt;
+          color: #cdd6f4; 
+          background-color: rgba(17, 17, 27, .88);
+        }
+
+        button {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 60%;
+          border: none;
+          color: #ced7f4;
+          text-shadow: none;
+          border-radius: 20px 20px 20px 20px;
+          background-color: rgba(30, 30, 46, 0);
+          margin: 5px;
+          outline-style: none;
+          transition: box-shadow 0.2s ease-in-out, background, 0.2s ease-in-out;
+        }
+
+        button:focus {
+          background-color: rgba(49, 50, 68, 0.1);
+        }
+
+        button:hover {
+          background-color: rgba(30, 203, 225, 0.1)
+        }
+
+        #lock {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/lock.png"));
+          background-size: 70%;
+        }
+
+        #lock:hover {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/lock-hover.png"));
+        }
+
+        #logout {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/logout.png"));
+        }
+
+        #logout:hover {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/logout-hover.png"));
+        }
+
+        #suspend {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/sleep.png"));
+        } 
+
+        #suspend:hover {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/sleep-hover.png"));
+        }
+
+        #shutdown {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/power.png"));
+        }
+
+        #shutdown:hover {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/power-hover.png"));
+        }
+
+        #reboot {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/restart.png"));
+        }
+
+        #reboot:hover {
+          background-image: image(url("/home/daviddeadly/.config/wlogout/icons/restart-hover.png"));
+        }
+      '';
+    };
+
+    hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          grace = 10;
+          hide_cursor = true;
+          ignore_empty_input = true;
+        };
+
+        background = {
+          path = "${./images/mountain-view.png}";
+          color = "rgb(84,147,171)";
+          blur_passes = 3;
+          blur_size = 3;
+          noise = 0.0117;
+          contrast = 0.8916;
+          brightness = 0.8172;
+          vibrancy = 0.1696;
+          vibrancy_darkness = 0.0;
+        };
+
+        image = {
+          path = "${./images/me.jpeg}";
+          size = 200;
+          border_color = "rgb(84,147,171)";
+          position = "0, 150";
+          halign = "center";
+          valign = "center";
+        };
+
+        label = {
+          text = "$TIME";
+          color = "rgb(10, 10, 10)";
+          font_size = 90;
+          font_family = "CaskaydiaCove NFM Bold";
+          position = "0, -150";
+          halign = "center";
+          valign = "top";
+        };
+
+        input-field = {
+          size = "300, 60";
+          outline_thickness = 4;
+          dots_size = 0.2;
+          dots_spacing = 0.2;
+          dots_center = true;
+          outer_color = "rgb(84,147,171)";
+          inner_color = "rgb(10, 10, 10)";
+          font_color = "rgb(84,147,171)";
+          fade_on_empty = false;
+          placeholder_text = ''<span foreground="##cdd6f4"><i>󰌾 Logged in as </i><span foreground="##5493ab">$USER</span></span>'';
+          hide_input = false;
+          check_color = "rgb(204, 136, 34)";
+          fail_color = "rgb(204, 34, 34)";
+          fail_text = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
+          capslock_color = -1;
+          position = "0, 0";
+          halign = "center";
+          valign = "center";
+        };
+      };
+    };
 
     wofi = {
       enable = true;
@@ -189,10 +362,10 @@ in
 
       settings = {
         font_size = 13;
-        font_family = "CaskaydiaCove NFM Regular ";
-        bold_font = "CaskaydiaCove NFM Bold ";
-        italic_font = "CaskaydiaCove NFM Italic ";
-        bold_italic_font = "CaskaydiaCove NFM Bold Italic ";
+        font_family = "CaskaydiaCove NFM Regular";
+        bold_font = "CaskaydiaCove NFM Bold";
+        italic_font = "CaskaydiaCove NFM Italic";
+        bold_italic_font = "CaskaydiaCove NFM Bold Italic";
 
         disable_ligatures = "never";
         background_tint = "0.9";
@@ -381,7 +554,7 @@ in
         dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx "'';
         editor-open = ''$$EDITOR $f'';
         preview = ''''$${pkgs.bat}/bin/bat --paging=always "$
-          f "'';
+            f "'';
         mkdir = ''
           ''${{
             printf "\nDirectory name: "
@@ -465,4 +638,7 @@ in
   #   };
   # };
 }
+
+
+
 
