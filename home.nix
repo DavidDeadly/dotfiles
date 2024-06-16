@@ -41,7 +41,6 @@ in
     rm-improved # better rm
     pamixer # volume control
 
-    kitty # terminal
     mako # notification daemon
 
     # Maybe you want to install Nerd Fonts with a limited number of fonts?
@@ -53,12 +52,10 @@ in
   # Home Manager is pretty good at managing dotfiles
   xdg.configFile."lf/icons".source = ./.config/lf/icons;
   home.file = {
-    ".config/wofi".source = ./.config/wofi;
     ".config/mako".source = ./.config/mako;
     ".config/zellij".source = ./.config/zellij;
     ".config/swaylock".source = ./.config/swaylock;
     ".config/io.github.zefr0x.ianny".source = ./.config/io.github.zefr0x.ianny;
-    # ".config/kitty".source = ./.config/kitty;
   };
 
   home.pointerCursor = {
@@ -82,10 +79,61 @@ in
 
     wlogout.enable = true;
     zellij.enable = true;
-    wofi.enable = true;
     htop.enable = true;
     lazygit.enable = true;
     gh.enable = true;
+
+    wofi = {
+      enable = true;
+      settings = {
+        width = 700;
+        allow_images = true;
+      };
+
+      style = ''
+        * {
+          border-radius: 15px;
+        }
+
+        window {
+          font-size: 32px;
+          font-family: "Roboto mono Medium";
+          background-color: transparent;
+          color: #cdd6f4;
+        }
+
+        #input {
+          border: none;
+          background-color: rgba(17, 17, 27, .9);
+          color: #89b4fa;
+          margin-bottom: 15px;
+          padding: 10px;
+        }
+
+        #inner-box {
+          background-color: rgba(30, 30, 46, .9);
+        }
+
+        image {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+
+        #entry {
+          padding: 10px;
+        }
+
+        #entry:selected {
+          outline: none;
+          background-color: #94e2d5;
+          background: linear-gradient(90deg, #94e2d5, #cba6f7);
+        }
+
+        #text:selected {
+          color: #333333;
+        }
+      '';
+    };
 
     kitty = {
       enable = true;
