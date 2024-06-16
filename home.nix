@@ -29,7 +29,6 @@ in
     networkmanagerapplet # network indicator
     hyprpicker # color picker
     inputs.swww.packages.${system}.swww # wallpaper-daemon
-    pkgs-unstable.neovim # neovim latest
     xfce.thunar # file manager
     swaylock-effects # locker
     hyprlock # locker for hyprland
@@ -55,8 +54,6 @@ in
 
   # Home Manager is pretty good at managing dotfiles
   home.file = {
-    #? doens't work with the .config/nvim git submodule
-    ".config/nvim".source = ~/nvim;
     ".config/wofi".source = ./.config/wofi;
     ".config/mako".source = ./.config/mako;
     ".config/zellij".source = ./.config/zellij;
@@ -136,6 +133,20 @@ in
         init.defaultBranch = "main";
         pull.rebase = true;
       };
+    };
+
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
+      package = pkgs-unstable.neovim-unwrapped;
+
+      extraPackages = with pkgs; [
+        gcc
+        nodejs
+        cargo
+      ];
     };
   };
 
