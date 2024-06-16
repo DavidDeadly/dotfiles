@@ -38,12 +38,8 @@ in
     hypridle # idle daemon for hyprland
     hyprcursor # cursor theme manager
     jq # json parser
-    ripgrep # better grep
     rm-improved # better rm
-    fd # better find
-    fzf # fuzzy finder
     pamixer # volume control
-    asusctl # power management
 
     kitty # terminal
     mako # notification daemon
@@ -155,9 +151,53 @@ in
       package = pkgs-unstable.neovim-unwrapped;
 
       extraPackages = with pkgs; [
-        gcc
-        nodejs
-        cargo
+        # python
+        nodePackages.pyright
+        (
+          python3.withPackages (ps: with ps; [
+            black
+            isort
+          ])
+        )
+
+        # lua
+        pkgs-unstable.lua-language-server
+        selene
+        stylua
+
+        # nix
+        statix
+        nixpkgs-fmt
+        pkgs-unstable.nil
+
+        # javascipt
+        nodePackages.prettier
+        nodePackages.eslint
+        nodePackages.typescript-language-server
+        nodePackages.volar
+
+        # Go
+        go
+        gopls
+        golangci-lint
+        delve
+
+        # Shell scripting
+        shfmt
+        shellcheck
+
+        # C, C++
+        clang-tools
+        cppcheck
+
+        # extras
+        nodePackages.cspell
+        nodePackages.vscode-langservers-extracted
+
+        # telescope deps
+        ripgrep
+        fd
+        fzf
       ];
     };
 
