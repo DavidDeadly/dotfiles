@@ -41,10 +41,9 @@ in
       brightnessctl # brightness service
       networkmanagerapplet # network indicator
       hyprpicker # color picker
+      hyprcursor # cursor theme manager
       inputs.swww.packages.${system}.swww # wallpaper-daemon
       xfce.thunar # file manager
-      swayidle # idle daemon
-      hyprcursor # cursor theme manager
       jq # json parser
       rm-improved # better rm
       pamixer # volume control
@@ -69,6 +68,7 @@ in
     copyq.enable = true;
     playerctld.enable = true;
 
+    # remember to start the service: systemctl --user status hypridle.service
     hypridle = {
       enable = true;
       settings = {
