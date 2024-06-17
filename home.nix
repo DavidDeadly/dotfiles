@@ -68,7 +68,6 @@ in
     copyq.enable = true;
     playerctld.enable = true;
 
-    # remember to start the service: systemctl --user status hypridle.service
     hypridle = {
       enable = true;
       settings = {
@@ -78,7 +77,7 @@ in
           after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
         };
 
-        listener2 = [
+        listener = [
           {
             timeout = 150; # 2.5min.
             on-timeout = "brightnessctl -s set 10"; # set monitor backlight to minimum, avoid 0 on OLED monitor.
@@ -86,7 +85,7 @@ in
           }
           {
             timeout = 300; # 5min
-            on-timeout = "loginctl lock-session"; # lock screen when timeout has passed
+            on-timeout = "hyprlock --immediate"; # lock screen when timeout has passed
           }
           {
             timeout = 330; # 5.5min
@@ -94,7 +93,7 @@ in
             on-resume = "hyprctl dispatch dpms on"; # screen on when activity is detected after timeout has fired.
           }
           {
-            timeout = 1800; # 30min
+            timeout = 600; # 10min
             on-timeout = "systemctl suspend"; # suspend pc
           }
         ];
