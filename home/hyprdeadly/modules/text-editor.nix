@@ -48,6 +48,7 @@
         # Shell scripting
         shfmt
         shellcheck
+        beautysh
 
         # C, C++
         clang-tools

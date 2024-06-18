@@ -1,0 +1,16 @@
+[pyprland]
+hyprland_version = "0.40.0"
+plugins = [
+  "magnify",
+  "expose",
+  "wallpapers"
+]
+
+[wallpapers]
+path = "~/.dotfiles/images/wallpapers/"
+interval = 60 # change every hour
+extensions = ["jpg", "jpeg", "png"]
+recursive = true
+## Using swww
+command = 'swww img "[file]"'
+clear_command = "swww clear"

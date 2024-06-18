@@ -8,14 +8,15 @@
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    swww.url = "github:LGFae/swww";
-
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    swww.url = "github:LGFae/swww";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    pyprland.url = "github:hyprland-community/pyprland";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
@@ -29,6 +30,11 @@
       nixosConfigurations = {
         davnix = lib.nixosSystem {
           inherit system;
+
+          specialArgs = {
+            inherit inputs;
+          };
+
           modules = [
             ./hosts/davnix/configuration.nix
 
@@ -59,7 +65,9 @@
             inherit pkgs-unstable;
           };
 
-          modules = [ ./home/hyprdeadly/home.nix ];
+          modules = [
+            ./home/hyprdeadly/home.nix
+          ];
         };
       };
     };

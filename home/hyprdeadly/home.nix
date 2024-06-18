@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [ ./modules ];
 
@@ -30,7 +30,6 @@
       wf-recorder # video recorder
       brightnessctl # brightness service
       networkmanagerapplet # network indicator
-      inputs.swww.packages.${system}.swww # wallpaper-daemon
       xfce.thunar # file manager
       jq # json parser
       rm-improved # better rm

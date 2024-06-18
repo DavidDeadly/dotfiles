@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
 
   xdg.configFile = {
@@ -101,6 +101,7 @@
 
     oh-my-posh = {
       enable = true;
+      package = pkgs-unstable.oh-my-posh;
       enableZshIntegration = true;
       useTheme = "catppuccin_mocha";
       settings = builtins.fromJSON (

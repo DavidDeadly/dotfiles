@@ -1,9 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     hyprpicker # color picker
     hyprcursor # cursor theme manager
+    inputs.swww.packages.${system}.swww # wallpaper-daemon
+    inputs.pyprland.packages.${system}.pyprland # hyprland plugin manager
   ];
+
+  xdg.configFile."hypr/pyprland.toml".source = ../../../.config/hypr/pyprland.toml;
+
+  home.sessionVariables = {
+    SWWW_TRANSITION_FPS = 60;
+    SWWW_TRANSITION = "any";
+    SWWW_TRANSITION_DURATION = 4;
+  };
 
   services.hypridle = {
     enable = true;
@@ -47,7 +57,7 @@
       };
 
       background = {
-        path = "${../../../images/mountain-view.png}";
+        path = "${../../../images/wallpapers/mountain-view.png}";
         color = "rgb(84,147,171)";
         blur_passes = 3;
         blur_size = 3;
@@ -102,7 +112,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
     xwayland.enable = true;
     systemd = {
       enable = true;
@@ -126,9 +135,12 @@
       workspace = [
         "name:Shell, monitor:eDP-1, default:true"
         "name:Web, monitor:HDMI-A-1, on-created-empty:vivaldi"
+        # Add some style to the "exposed" workspace
+        "special:exposed,gapsout:60,gapsin:30,bordersize:5,border:true,shadow:false"
       ];
 
       exec-once = [
+        "pypr"
         "mako"
         "ianny"
         "swww-daemon"
@@ -277,8 +289,13 @@
         "$mainMod, Q, exec, kitty"
         "$mainMod SHIFT, X, killactive,"
 
+        #pypr plugins binds
+        "$mainMod , Z, exec, pypr zoom ++0.5"
+        "$mainMod SHIFT, Z, exec, pypr zoom"
+        "$mainMod, B, exec, pypr expose"
+
         # System
-        "$mainMod, code:47, exec, $scripts/wlogout_launcher.sh"
+        "$mainMod, code:47, exec, wlogout -b 5 -c 0 -r 0 --protocol layer-shell"
         "$mainMod, code:73, exec, brightnessctl s 10%-"
         "$mainMod, code:74, exec, brightnessctl s 10%+"
         "$mainMod SHIFT, M, exit, "
@@ -289,9 +306,9 @@
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
         "$mainMod, C, exec, hyprpicker | wl-copy"
         "$mainMod, SPACE, exec, wofi --show drun"
-        ''$mainMod, W, exec, $scripts/swww_set.sh $($scripts/random_wallpaper.sh)''
-
-
+        "$mainMod, W, exec, pypr wall next"
+        "$mainMod SHIFT, W, exec, pypr wall clear"
+        "$mainMod ALT, SPACE, exec, swww img $($scripts/select_wallpaper.sh)"
 
         "$mainMod, T, togglefloating,"
         "$mainMod, F, fullscreen,"
