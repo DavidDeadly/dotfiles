@@ -107,8 +107,8 @@
     systemd.enable = true;
 
     settings = {
-      "$scripts" = ../../../.config/hypr/scripts;
-      "$mod" = "SUPER";
+      "$scripts" = "${../../../.config/hypr/scripts}";
+      "$mainMod" = "SUPER";
       "$layout" = "master";
       "$terminal" = "kitty";
       "$fileManager" = "thunar";
@@ -132,17 +132,13 @@
         "nm-applet --indicator"
         "copyq --start-server"
         # "hypridle"
-        # "systemctl --user start hypridle.service"
         "eww open bar"
         "$scripts/toggle_layout.sh true"
         "/usr/lib/xfce-polkit/xfce-polkit"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl --user start hypridle.service"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
-
-      cursor = {
-        enable_hyprcursor = true;
-      };
 
       xwayland = {
         force_zero_scaling = true;
@@ -168,7 +164,6 @@
 
         follow_mouse = 1;
         sensitivity = 0;
-        numlock_by_default = true;
 
         touchpad = {
           natural_scroll = true;
@@ -178,12 +173,12 @@
       general = {
         gaps_in = 5;
         gaps_out = 20;
-        border_size = 0;
-        # border_size = 2;
-        # "col.active_border" = "${catppuccin_border}";
-        # "col.inactive_border" = "${tokyonight_border}";
+        border_size = 2;
         layout = "$layout";
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
 
+        resize_on_border = true;
         # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
         allow_tearing = false;
       };
@@ -195,8 +190,7 @@
         shadow_range = 20;
         shadow_render_power = 3;
         "col.shadow" = "rgba(1a1a1aee)";
-        # "col.shadow" = "rgb(${oxocarbon_background})";
-        # "col.shadow_inactive" = "${background}";
+
         blur = {
           enabled = true;
           size = 3;
@@ -214,28 +208,16 @@
       animations = {
         enabled = true;
         bezier = [
-          "pace,0.46, 1, 0.29, 0.99"
-          "overshot,0.13,0.99,0.29,1.1"
-          "md3_decel, 0.05, 0.7, 0.1, 1"
-
-          # "myBezier, 0.05, 0.9, 0.1, 1.05"
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
         ];
-        animation = [
-          "windowsIn,1,6,md3_decel,slide"
-          "windowsOut,1,6,md3_decel,slide"
-          "windowsMove,1,6,md3_decel,slide"
-          "fade,1,10,md3_decel"
-          "workspaces,1,9,md3_decel,slide"
-          "workspaces, 1, 6, default"
-          "specialWorkspace,1,8,md3_decel,slide"
-          "border,1,10,md3_decel"
 
-          # "windows, 1, 7, myBezier"
-          # "windowsOut, 1, 7, default, popin 80%"
-          # "border, 1, 10, default"
-          # "borderangle, 1, 8, default"
-          # "fade, 1, 7, default"
-          # "workspaces, 1, 6, default"
+        animation = [
+          "windows, 1, 7, myBezier"
+          "windowsOut, 1, 7, default, popin 80%"
+          "border, 1, 10, default"
+          "borderangle, 1, 8, default"
+          "fade, 1, 7, default"
+          "workspaces, 1, 8, default"
         ];
       };
 
@@ -309,8 +291,7 @@
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
         "$mainMod, C, exec, hyprpicker | wl-copy"
         "$mainMod, SPACE, exec, wofi --show drun"
-        ''$mainMod, W, exec, $scripts/swww_set.sh "$($scripts/random_wallpaper.sh) "''
-        ''$mainMod SHIFT, W, exec, $scripts/swww_set.sh "$WALLPAPERS/$($scripts/select_wallpaper.sh)''
+        ''$mainMod, W, exec, $scripts/swww_set.sh $($scripts/random_wallpaper.sh)''
 
 
 
@@ -369,21 +350,21 @@
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
-
-      extacConfig = ''
-        submap = Resize
-        # sets repeatable binds for resizing the active window
-        binde = , L, resizeactive, 20 0
-        binde = , H, resizeactive, -20 0
-        binde = , K, resizeactive, 0 -20
-        binde = , J, resizeactive, 0 20
-
-        # use reset to go back to the global submap
-        bind = $mainMod, R, submap, reset 
-
-        # will reset the submap
-        submap = reset
-      '';
     };
+
+    extraConfig = ''
+      submap = Resize
+      # sets repeatable binds for resizing the active window
+      binde = , L, resizeactive, 20 0
+      binde = , H, resizeactive, -20 0
+      binde = , K, resizeactive, 0 -20
+      binde = , J, resizeactive, 0 20
+
+      # use reset to go back to the global submap
+      bind = $mainMod, R, submap, reset 
+
+      # will reset the submap
+      submap = reset
+    '';
   };
 }
