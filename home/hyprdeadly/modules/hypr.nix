@@ -122,7 +122,7 @@
 
       workspace = [
         "name:Shell, monitor:eDP-1, default:true"
-        "name:Web, monitor:HDMI-A-1, default:true, on-created-empty vivaldi"
+        "name:Web, monitor:HDMI-A-1, on-created-empty:vivaldi"
       ];
 
       exec-once = [
@@ -276,7 +276,6 @@
 
       bind = [
         "$mainMod, Q, exec, kitty"
-        "$mainMod, B, exec, vivaldi"
         "$mainMod SHIFT, X, killactive, "
 
         # System
