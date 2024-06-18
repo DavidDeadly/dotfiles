@@ -16,15 +16,15 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     let
       system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+      inherit (nixpkgs) lib;
+      pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+      pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
     in
     {
       nixosConfigurations = {
         davnix = lib.nixosSystem {
           inherit system;
-          modules = [ ./configuration.nix ];
+          modules = [ ./hosts/davnix/configuration.nix ];
         };
       };
 
@@ -32,12 +32,12 @@
         daviddeadly = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          extraSpecialArgs = { 
+          extraSpecialArgs = {
             inherit inputs;
             inherit pkgs-unstable;
           };
 
-          modules = [ ./home.nix ];
+          modules = [ ./home/hyprdeadly/home.nix ];
         };
       };
     };
