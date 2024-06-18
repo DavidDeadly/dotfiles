@@ -1,5 +1,7 @@
 { ... }:
 {
+  xdg.configFile."wlogout/icons".source = ../../../.config/wlogout/icons;
+
   programs.wlogout = {
     enable = true;
 

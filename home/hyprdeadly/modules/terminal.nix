@@ -1,5 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
+
+  xdg.configFile = {
+    "lf/icons".source = ../../../.config/lf/icons;
+    "zellij".source = ../../../.config/zellij;
+  };
+
   programs = {
     htop.enable = true;
     zellij.enable = true;

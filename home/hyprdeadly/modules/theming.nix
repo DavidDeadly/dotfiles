@@ -1,20 +1,28 @@
 { pkgs, ... }:
 {
   home.pointerCursor = {
+    gtk.enable = true;
+
     name = "Catppuccin-Mocha-Sky-Cursors";
     package = pkgs.catppuccin-cursors.mochaSky;
   };
 
   gtk = {
     enable = true;
+
+    font = {
+      name = "Sans";
+      size = 11;
+    };
+
     theme = {
-      package = import ./gtk-theme.nix { inherit pkgs; };
-      name = "Infinity-GTK";
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Teal-Darkest-Solid";
     };
 
     iconTheme = {
       package = import ./icons-theme.nix { inherit pkgs; };
-      name = "vivid-glasy-dark";
+      name = "candy-icons-master";
     };
 
     gtk3.extraConfig = {

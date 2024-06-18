@@ -147,10 +147,10 @@
       env = [
         "QT_QPA_PLATFORMTHEME,qt6ct "
         "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-        "XCURSOR_SIZE,32"
-        "XCURSOR_THEME,macOS-BigSur"
-        "HYPRCURSOR_THEME,macOS-BigSur"
-        "HYPRCURSOR_SIZE,32"
+        "XCURSOR_SIZE,38"
+        "XCURSOR_THEME,Catppuccin-Mocha-Sky-Cursors"
+        "HYPRCURSOR_THEME,Catppuccin-Mocha-Sky-Cursors"
+        "HYPRCURSOR_SIZE,38"
         "HYPR_DEFAULT_LAYOUT,$layout"
         "WALLPAPERS,/home/daviddeadly/Wallpapers"
       ];
