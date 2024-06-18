@@ -11,6 +11,11 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     swww.url = "github:LGFae/swww";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
@@ -24,7 +29,24 @@
       nixosConfigurations = {
         davnix = lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/davnix/configuration.nix ];
+          modules = [
+            ./hosts/davnix/configuration.nix
+
+            inputs.lanzaboote.nixosModules.lanzaboote
+            ({ pkgs, lib, ... }: {
+              environment.systemPackages = [
+                # For debugging and troubleshooting Secure Boot.
+                pkgs.sbctl
+              ];
+
+              boot.loader.systemd-boot.enable = lib.mkForce false;
+
+              boot.lanzaboote = {
+                enable = true;
+                pkiBundle = "/etc/secureboot";
+              };
+            })
+          ];
         };
       };
 
