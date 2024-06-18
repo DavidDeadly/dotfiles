@@ -100,13 +100,290 @@
     };
   };
 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   package = pkgs.hyprland;
-  #   xwayland.enable = true;
-  #   systemd.enable = true;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = pkgs.hyprland;
+    xwayland.enable = true;
+    systemd.enable = true;
 
-  #   settings = {
-  #   };
-  # };
+    settings = {
+      "$scripts" = ../../../.config/hypr/scripts;
+      "$mod" = "SUPER";
+      "$layout" = "master";
+      "$terminal" = "kitty";
+      "$fileManager" = "thunar";
+      "$menu" = "wofi --show drun";
+
+      monitor = [
+        ",preferred,auto,auto"
+        "eDP-1,1920x1080@144,auto,1"
+        "HDMI-A-1,1920x1080@60,auto,1"
+      ];
+
+      workspace = [
+        "name:Shell, monitor:eDP-1, default:true"
+        "name:Web, monitor:HDMI-A-1, default:true, on-created-empty vivaldi"
+      ];
+
+      exec-once = [
+        "mako"
+        "ianny"
+        "swww-daemon"
+        "nm-applet --indicator"
+        "copyq --start-server"
+        # "hypridle"
+        # "systemctl --user start hypridle.service"
+        "eww open bar"
+        "$scripts/toggle_layout.sh true"
+        "/usr/lib/xfce-polkit/xfce-polkit"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      ];
+
+      cursor = {
+        enable_hyprcursor = true;
+      };
+
+      xwayland = {
+        force_zero_scaling = true;
+      };
+
+      env = [
+        "QT_QPA_PLATFORMTHEME,qt6ct "
+        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+        "XCURSOR_SIZE,32"
+        "XCURSOR_THEME,macOS-BigSur"
+        "HYPRCURSOR_THEME,macOS-BigSur"
+        "HYPRCURSOR_SIZE,32"
+        "HYPR_DEFAULT_LAYOUT,$layout"
+        "WALLPAPERS,/home/daviddeadly/Wallpapers"
+      ];
+
+      input = {
+        kb_layout = "latam";
+        kb_variant = "";
+        kb_model = "";
+        kb_options = "ctrl:nocaps";
+        kb_rules = "";
+
+        follow_mouse = 1;
+        sensitivity = 0;
+        numlock_by_default = true;
+
+        touchpad = {
+          natural_scroll = true;
+        };
+      };
+
+      general = {
+        gaps_in = 5;
+        gaps_out = 20;
+        border_size = 0;
+        # border_size = 2;
+        # "col.active_border" = "${catppuccin_border}";
+        # "col.inactive_border" = "${tokyonight_border}";
+        layout = "$layout";
+
+        # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+        allow_tearing = false;
+      };
+
+      decoration = {
+        rounding = 10;
+        shadow_ignore_window = true;
+        drop_shadow = true;
+        shadow_range = 20;
+        shadow_render_power = 3;
+        "col.shadow" = "rgba(1a1a1aee)";
+        # "col.shadow" = "rgb(${oxocarbon_background})";
+        # "col.shadow_inactive" = "${background}";
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 1;
+          new_optimizations = true;
+          ignore_opacity = true;
+          noise = 0.0117;
+          contrast = 1.3;
+          vibrancy = 0.1696;
+          brightness = 1;
+          xray = true;
+        };
+      };
+
+      animations = {
+        enabled = true;
+        bezier = [
+          "pace,0.46, 1, 0.29, 0.99"
+          "overshot,0.13,0.99,0.29,1.1"
+          "md3_decel, 0.05, 0.7, 0.1, 1"
+
+          # "myBezier, 0.05, 0.9, 0.1, 1.05"
+        ];
+        animation = [
+          "windowsIn,1,6,md3_decel,slide"
+          "windowsOut,1,6,md3_decel,slide"
+          "windowsMove,1,6,md3_decel,slide"
+          "fade,1,10,md3_decel"
+          "workspaces,1,9,md3_decel,slide"
+          "workspaces, 1, 6, default"
+          "specialWorkspace,1,8,md3_decel,slide"
+          "border,1,10,md3_decel"
+
+          # "windows, 1, 7, myBezier"
+          # "windowsOut, 1, 7, default, popin 80%"
+          # "border, 1, 10, default"
+          # "borderangle, 1, 8, default"
+          # "fade, 1, 7, default"
+          # "workspaces, 1, 6, default"
+        ];
+      };
+
+      misc = {
+        vfr = true;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        force_default_wallpaper = -1; # Set to 0 or 1 to disable the anime mascot wallpapers
+      };
+
+      dwindle = {
+        pseudotile = true; # enable pseudotiling on dwindle
+        preserve_split = true;
+      };
+
+      master = {
+        new_is_master = true;
+      };
+
+      gestures = {
+        workspace_swipe = true;
+      };
+
+      windowrule = [
+        "float,^(thunar)$"
+        "float, ^(pavucontrol)$"
+        "move onscreen cursor -50% -50%, ^(pavucontrol)$"
+        "size 30% 40%, ^(pavucontrol)$"
+        "dimaround, ^(pavucontrol)$"
+        "opacity 0.8 override 0.5, ^(kitty)$"
+      ];
+
+      windowrulev2 = [
+        "float, class:^()$, title:^()$"
+        "size 20 20, class:^()$, title:^()$"
+        "move onscreen 1361 131, class:^()$, title:^()$"
+
+        "opacity 0.9 0.8, class:^(vivaldi-stable)$"
+        "float, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        "opacity 1.0 override, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        "size 50% 70%, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        "float, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+        "size 40% 50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+        "move onscreen cursor -50% -50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+
+        "float, class:(copyq)"
+        "move onscreen cursor -50% -50%,class:(copyq)"
+        "size 30% 40%, class:(copyq)"
+        "dimaround, class:(copyq)"
+
+        "float, class:(gtk-tray)"
+        "move onscreen cursor -50% -50%,class:(gtk-tray)"
+        "size 5% 5%, class:(gtk-tray)"
+        "dimaround, class:(gtk-tray)"
+      ];
+
+      bind = [
+        "$mainMod, Q, exec, kitty"
+        "$mainMod, B, exec, vivaldi"
+        "$mainMod SHIFT, X, killactive, "
+
+        # System
+        "$mainMod, code:47, exec, $scripts/wlogout_launcher.sh"
+        "$mainMod, code:73, exec, brightnessctl s 10%-"
+        "$mainMod, code:74, exec, brightnessctl s 10%+"
+        "$mainMod SHIFT, M, exit, "
+
+        # Utilities
+        "$mainMod, E, exec, $fileManager"
+        "$mainMod, V, exec, copyq toggle"
+        "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
+        "$mainMod, C, exec, hyprpicker | wl-copy"
+        "$mainMod, SPACE, exec, wofi --show drun"
+        ''$mainMod, W, exec, $scripts/swww_set.sh "$($scripts/random_wallpaper.sh) "''
+        ''$mainMod SHIFT, W, exec, $scripts/swww_set.sh "$WALLPAPERS/$($scripts/select_wallpaper.sh)''
+
+
+
+        "$mainMod, T, togglefloating,"
+        "$mainMod, F, fullscreen,"
+        "$mainMod, O, toggleopaque,"
+
+        # Dwindle
+        "$mainMod, P, pseudo, # dwindle"
+        "$mainMod, S, togglesplit, # dwindle"
+
+        # Master
+
+        # toggle layouts
+        "$mainMod, G, exec, $scripts/toggle_layout.sh"
+
+        # Move focus with mainMod + vim keys
+        "$mainMod, H, movefocus, l"
+        "$mainMod, L, movefocus, r"
+        "$mainMod, K, movefocus, u"
+        "$mainMod, J, movefocus, d"
+
+        "$mainMod SHIFT, H, movewindow, l"
+        "$mainMod SHIFT, L, movewindow, r"
+        "$mainMod SHIFT, K, movewindow, u"
+        "$mainMod SHIFT, J, movewindow, d"
+
+        # Switch workspaces with mainMod + workspace
+        "$mainMod, 1, workspace, name:Shell"
+        "$mainMod, 2, workspace, name:Web"
+        "$mainMod, 3, workspace, 3"
+        "$mainMod, 4, workspace, 4"
+
+        # Move window to workspace
+        "$mainMod SHIFT, 1, movetoworkspace, name:Shell"
+        "$mainMod SHIFT, 2, movetoworkspace, name:Web"
+        "$mainMod SHIFT, 3, movetoworkspace, 3"
+        "$mainMod SHIFT, 4, movetoworkspace, 4"
+
+        # Move window to workspace without switching
+        "$mainMod CTRL SHIFT, 1, movetoworkspacesilent, name:Shell"
+        "$mainMod CTRL SHIFT, 2, movetoworkspacesilent, name:Web"
+        "$mainMod CTRL SHIFT, 3, movetoworkspacesilent, 3"
+        "$mainMod CTRL SHIFT, 4, movetoworkspacesilent, 4"
+
+        # Scroll through existing workspaces with mainMod + scroll
+        "$mainMod CTRL, K, workspace, e+1"
+        "$mainMod CTRL, J, workspace, e-1"
+
+        # will switch to a submap Resize
+        "$mainMod, R, submap, Resize"
+      ];
+
+      bindm = [
+        # Move/resize windows with mainMod + LMB/RMB and dragging
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
+      ];
+
+      extacConfig = ''
+        submap = Resize
+        # sets repeatable binds for resizing the active window
+        binde = , L, resizeactive, 20 0
+        binde = , H, resizeactive, -20 0
+        binde = , K, resizeactive, 0 -20
+        binde = , J, resizeactive, 0 20
+
+        # use reset to go back to the global submap
+        bind = $mainMod, R, submap, reset 
+
+        # will reset the submap
+        submap = reset
+      '';
+    };
+  };
 }

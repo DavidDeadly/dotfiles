@@ -93,11 +93,10 @@
       };
     };
 
-
     oh-my-posh = {
       enable = true;
       enableZshIntegration = true;
-      useTheme = "catppuccin_macchiato";
+      useTheme = "catppuccin_mocha";
       settings = builtins.fromJSON (
         builtins.unsafeDiscardStringContext (
           builtins.readFile ../../../.config/oh-my-posh/daviddeadly.omp.json
