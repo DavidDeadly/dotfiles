@@ -100,7 +100,7 @@
       useTheme = "catppuccin_macchiato";
       settings = builtins.fromJSON (
         builtins.unsafeDiscardStringContext (
-          builtins.readFile "${config.home.homeDirectory}/.dotfiles/.config/oh-my-posh/daviddeadly.omp.json"
+          builtins.readFile ../../../.config/oh-my-posh/daviddeadly.omp.json
         )
       );
     };
