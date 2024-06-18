@@ -104,7 +104,10 @@
     enable = true;
     package = pkgs.hyprland;
     xwayland.enable = true;
-    systemd.enable = true;
+    systemd = {
+      enable = true;
+      variables = [ "--all" ];
+    };
 
     settings = {
       "$scripts" = "${../../../.config/hypr/scripts}";
@@ -131,13 +134,9 @@
         "swww-daemon"
         "nm-applet --indicator"
         "copyq --start-server"
-        # "hypridle"
         "eww open bar"
         "$scripts/toggle_layout.sh true"
         "/usr/lib/xfce-polkit/xfce-polkit"
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "systemctl --user start hypridle.service"
-        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
       xwayland = {
@@ -276,7 +275,7 @@
 
       bind = [
         "$mainMod, Q, exec, kitty"
-        "$mainMod SHIFT, X, killactive, "
+        "$mainMod SHIFT, X, killactive,"
 
         # System
         "$mainMod, code:47, exec, $scripts/wlogout_launcher.sh"
