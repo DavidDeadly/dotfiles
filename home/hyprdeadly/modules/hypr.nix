@@ -182,12 +182,12 @@
       };
 
       general = {
-        gaps_in = 5;
-        gaps_out = 20;
-        border_size = 2;
+        gaps_in = 10;
+        gaps_out = 30;
+        border_size = 3;
         layout = "$layout";
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        "col.active_border " = "rgb(8aadf4) rgb(24273A) rgb(24273A) rgb(8aadf4) 45deg";
+        "col.inactive_border" = "rgb(24273A) rgb(24273A) rgb(24273A) rgb(24273A) 45deg";
 
         resize_on_border = true;
         # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
@@ -204,7 +204,7 @@
 
         blur = {
           enabled = true;
-          size = 3;
+          size = 8;
           passes = 1;
           new_optimizations = true;
           ignore_opacity = true;
@@ -219,16 +219,20 @@
       animations = {
         enabled = true;
         bezier = [
-          "myBezier, 0.05, 0.9, 0.1, 1.05"
+          "easeOutExpo, 0.16, 1, 0.3, 1"
+          "linear, 0.0, 0.0, 1.0, 1.0"
         ];
 
         animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
+          "windowsIn, 1, 8, easeOutExpo, popin"
+          "windowsOut, 1, 8, easeOutExpo, popin"
+
+          "workspaces, 1, 8, easeOutExpo, slidefade 10%"
+
           "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 8, default"
+          "borderangle, 1, 100, linear, loop"
+
+          "fade, 1, 8, default"
         ];
       };
 
@@ -245,7 +249,9 @@
       };
 
       master = {
-        new_is_master = true;
+        new_is_master = false;
+        # maybe future versions 
+        # new_status = "slave";
       };
 
       gestures = {
@@ -264,7 +270,7 @@
       windowrulev2 = [
         "float, class:^()$, title:^()$"
         "size 20 20, class:^()$, title:^()$"
-        "move onscreen 1361 131, class:^()$, title:^()$"
+        "move onscreen 1487 123, class:^()$, title:^()$"
 
         "opacity 0.9 0.8, class:^(vivaldi-stable)$"
         "float, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
