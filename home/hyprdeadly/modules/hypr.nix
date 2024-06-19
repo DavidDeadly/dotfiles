@@ -186,7 +186,7 @@
         gaps_out = 30;
         border_size = 3;
         layout = "$layout";
-        "col.active_border " = "rgb(8aadf4) rgb(24273A) rgb(24273A) rgb(8aadf4) 45deg";
+        "col.active_border " = "rgb(94e2d5) rgb(24273A) rgb(24273A) rgb(94e2d5) 45deg";
         "col.inactive_border" = "rgb(24273A) rgb(24273A) rgb(24273A) rgb(24273A) 45deg";
 
         resize_on_border = true;
@@ -198,9 +198,7 @@
         rounding = 10;
         shadow_ignore_window = true;
         drop_shadow = true;
-        shadow_range = 20;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        "col.shadow" = "rgba(cba6f7ee)";
 
         blur = {
           enabled = true;
@@ -264,7 +262,7 @@
         "move onscreen cursor -50% -50%, ^(pavucontrol)$"
         "size 30% 40%, ^(pavucontrol)$"
         "dimaround, ^(pavucontrol)$"
-        "opacity 0.8 override 0.5, ^(kitty)$"
+        "opacity 0.8 0.7, ^(kitty)$"
       ];
 
       windowrulev2 = [
