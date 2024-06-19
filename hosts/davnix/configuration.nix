@@ -137,7 +137,6 @@
 
     (pkgs.catppuccin-sddm.override {
       flavor = "mocha";
-      fontSize = "12";
       background = ../../images/wallpapers/mountain-view.png;
       loginBackground = true;
     })

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
   home.packages = with pkgs; [
     hyprpicker # color picker
@@ -163,7 +163,7 @@
         "HYPRCURSOR_THEME,Catppuccin-Mocha-Sky-Cursors"
         "HYPRCURSOR_SIZE,38"
         "HYPR_DEFAULT_LAYOUT,$layout"
-        "WALLPAPERS,/home/daviddeadly/Wallpapers"
+        "WALLPAPERS,${config.home.homeDirectory}/.dotfiles/images/wallpapers/"
       ];
 
       input = {

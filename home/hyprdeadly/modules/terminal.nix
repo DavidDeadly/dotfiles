@@ -7,7 +7,7 @@
   };
 
   programs = {
-    htop.enable = true;
+    btop.enable = true;
     zellij.enable = true;
 
     bat = {
