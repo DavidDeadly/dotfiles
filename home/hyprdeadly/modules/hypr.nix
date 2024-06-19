@@ -289,14 +289,15 @@
         "dimaround, class:(gtk-tray)"
       ];
 
+      "$woomer" = "${inputs.woomer.packages.${pkgs.system}.default}/bin/woomer";
+      "$grim" = "${pkgs.grim}/bin/grim";
+      "$slurp" = "${pkgs.slurp}/bin/slurp";
+      "$swappy" = "${pkgs.swappy}/bin/swappy";
+      "$pngquant" = "${pkgs.pngquant}/bin/pngquant";
+
       bind = [
         "$mainMod, Q, exec, kitty"
         "$mainMod SHIFT, X, killactive,"
-
-        #pypr plugins binds
-        "$mainMod , Z, exec, pypr zoom ++0.5"
-        "$mainMod SHIFT, Z, exec, pypr zoom"
-        "$mainMod, B, exec, pypr expose"
 
         # System
         "$mainMod, code:47, exec, wlogout -b 5 -c 0 -r 0 --protocol layer-shell"
@@ -306,21 +307,32 @@
 
         # Utilities
         "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, exec, copyq toggle"
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
-        "$mainMod, C, exec, hyprpicker | wl-copy"
         "$mainMod, SPACE, exec, wofi --show drun"
+
+        '', Print, exec, $grim -g "$($slurp)" - | $swappy -f - -o - | $pngquant - | wl-copy''
+        "$mainMod, Print, exec, $grim - | $swappy -f - -o - | $pngquant - | wl-copy"
+
+        "$mainMod, V, exec, copyq toggle"
+        "$mainMod, C, exec, hyprpicker | wl-copy"
+
+        "$mainMod CTRL, Z, exec, $woomer"
+        "$mainMod ALT, SPACE, exec, swww img $($scripts/select_wallpaper.sh)"
+
+        #pypr plugins binds
         "$mainMod, W, exec, pypr wall next"
         "$mainMod SHIFT, W, exec, pypr wall clear"
-        "$mainMod ALT, SPACE, exec, swww img $($scripts/select_wallpaper.sh)"
+        "$mainMod , Z, exec, pypr zoom ++0.5"
+        "$mainMod SHIFT, Z, exec, pypr zoom"
+        "$mainMod, B, exec, pypr expose"
 
         "$mainMod, T, togglefloating,"
         "$mainMod, F, fullscreen,"
         "$mainMod, O, toggleopaque,"
 
         # Dwindle
-        "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, S, togglesplit, # dwindle"
+        "$mainMod, P, pseudo,"
+        "$mainMod, S, togglesplit,"
 
         # Master
 

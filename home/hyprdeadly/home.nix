@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [ ./modules ];
 
@@ -23,19 +23,14 @@
       neofetch # system stats
       playerctl # media player
       pavucontrol # audio player
+      pamixer # volume control
       wl-clipboard # clipboard manager
-      grim # image graber
-      slurp # area selection
-      swappy # snapshots
-      wf-recorder # video recorder
       brightnessctl # brightness service
       networkmanagerapplet # network indicator
       xfce.thunar # file manager
       jq # json parser
       rm-improved # better rm
-      pamixer # volume control
 
-      # Maybe you want to install Nerd Fonts with a limited number of fonts?
       (nerdfonts.override {
         fonts = [ "CascadiaCode" ];
       })

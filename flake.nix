@@ -15,6 +15,8 @@
 
     swww.url = "github:LGFae/swww";
 
+    woomer.url = "github:coffeeispower/woomer";
+
     hyprland.url = "github:hyprwm/Hyprland";
     pyprland.url = "github:hyprland-community/pyprland";
   };
