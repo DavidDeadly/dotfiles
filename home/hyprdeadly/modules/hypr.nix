@@ -122,7 +122,7 @@
       "$scripts" = "${../../../.config/hypr/scripts}";
       "$mainMod" = "SUPER";
       "$layout" = "master";
-      "$terminal" = "kitty";
+      "$terminal" = "foot";
       "$fileManager" = "thunar";
       "$menu" = "wofi --show drun";
 
@@ -143,6 +143,7 @@
         "pypr"
         "mako"
         "ianny"
+        "foot --server"
         "swww-daemon"
         "nm-applet --indicator"
         "copyq --start-server"
@@ -256,16 +257,15 @@
         workspace_swipe = true;
       };
 
-      windowrule = [
-        "float,^(thunar)$"
-        "float, ^(pavucontrol)$"
-        "move onscreen cursor -50% -50%, ^(pavucontrol)$"
-        "size 30% 40%, ^(pavucontrol)$"
-        "dimaround, ^(pavucontrol)$"
-        "opacity 0.8 0.7, ^(kitty)$"
-      ];
-
       windowrulev2 = [
+        "opacity 0.8 0.7, initialTitle:^($terminal)$"
+
+        "float, class:^(thunar)$"
+        "float, class:^(pavucontrol)$"
+        "move onscreen cursor -50% -50%, class:^(pavucontrol)$"
+        "size 30% 40%, class:^(pavucontrol)$"
+        "dimaround, class:^(pavucontrol)$"
+
         "float, class:^()$, title:^()$"
         "size 20 20, class:^()$, title:^()$"
         "move onscreen 1487 123, class:^()$, title:^()$"
@@ -296,7 +296,8 @@
       "$pngquant" = "${pkgs.pngquant}/bin/pngquant";
 
       bind = [
-        "$mainMod, Q, exec, kitty"
+        "$mainMod, Q, exec, $terminalclient"
+        "$mainMod SHIFT, Q, exec, $terminal"
         "$mainMod SHIFT, X, killactive,"
 
         # System
