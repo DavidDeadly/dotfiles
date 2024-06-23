@@ -36,6 +36,17 @@
     ];
   };
 
+  xdg.desktopEntries = {
+    thorium = {
+      name = "Thorium";
+      genericName = "Web Browser";
+      exec = "thorium";
+      terminal = false;
+      categories = [ "Application" "Network" "WebBrowser" ];
+      mimeType = [ "text/html" "text/xml" ];
+    };
+  };
+
   xdg.configFile.".config/io.github.zefr0x.ianny/config.toml".text = ''
     [timer]
     idle_timeout = 300
