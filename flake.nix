@@ -13,12 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    swww.url = "github:LGFae/swww";
-
     woomer.url = "github:coffeeispower/woomer";
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    pyprland.url = "github:hyprland-community/pyprland";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:

@@ -1,10 +1,10 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, pkgs-unstable, inputs, config, ... }:
 {
-  home.packages = with pkgs; [
+  home.packages = with pkgs-unstable; [
     hyprpicker # color picker
     hyprcursor # cursor theme manager
-    inputs.swww.packages.${system}.swww # wallpaper-daemon
-    inputs.pyprland.packages.${system}.pyprland # hyprland plugin manager
+    swww # wallpaper-daemon
+    pyprland # hyprland plugin manager
   ];
 
   xdg.configFile."hypr/pyprland.toml".source = ../../../.config/hypr/pyprland.toml;
@@ -113,7 +113,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.default;
+    package = pkgs-unstable.hyprland;
     systemd = {
       enable = true;
       variables = [ "--all" ];
