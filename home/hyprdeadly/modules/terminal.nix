@@ -19,6 +19,10 @@
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
+      initExtra = ''
+
+        PATH=$PATH:~/AppImages
+      '';
       shellAliases = {
         ll = "ls -l";
         ".." = "cd ..";
@@ -55,7 +59,7 @@
       enable = true;
       settings = {
         main = {
-          # term = "xterm-256color";
+          term = "xterm-256color";
 
           font = "CaskaydiaCove NFM:size=8";
           dpi-aware = "yes";

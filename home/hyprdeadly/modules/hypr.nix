@@ -134,7 +134,7 @@
 
       workspace = [
         "name:Shell, monitor:eDP-1, default:true"
-        "name:Web, monitor:HDMI-A-1, on-created-empty:vivaldi"
+        "name:Web, monitor:HDMI-A-1, on-created-empty:~/AppImages/thorium"
         # Add some style to the "exposed" workspace
         "special:exposed,gapsout:60,gapsin:30,bordersize:5,border:true,shadow:false"
       ];
@@ -266,17 +266,23 @@
         "size 30% 40%, class:^(pavucontrol)$"
         "dimaround, class:^(pavucontrol)$"
 
-        "float, class:^()$, title:^()$"
-        "size 20 20, class:^()$, title:^()$"
-        "move onscreen 1487 123, class:^()$, title:^()$"
+        # "float, class:^()$, title:^()$"
+        # "size 20 20, class:^()$, title:^()$"
+        # "move onscreen 1487 123, class:^()$, title:^()$"
 
-        "opacity 0.9 0.8, class:^(vivaldi-stable)$"
-        "float, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
-        "opacity 1.0 override, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
-        "size 50% 70%, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
-        "float, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
-        "size 40% 50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
-        "move onscreen cursor -50% -50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+        # vivaldi windowrules
+        # "opacity 0.9 0.8, class:^(vivaldi-stable)$"
+        # "float, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        # "opacity 1.0 override, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        # "size 50% 70%, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
+        # "float, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+        # "size 40% 50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+        # "move onscreen cursor -50% -50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
+
+        "opacity 0.9 0.8, class:^(Thorium-browser)$"
+        "float, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
+        "size 40% 50%, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
+        "move onscreen cursor -50% -50%, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
 
         "float, class:(copyq)"
         "move onscreen cursor -50% -50%,class:(copyq)"

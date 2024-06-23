@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   imports = [ ./modules ];
 
@@ -18,7 +18,6 @@
 
     # $ nix search <package to search>
     packages = with pkgs; [
-      pkgs-unstable.vivaldi # browser
       ianny # breaks utility
       neofetch # system stats
       playerctl # media player
