@@ -17,7 +17,7 @@
 
     woomer.url = "github:coffeeispower/woomer";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     pyprland.url = "github:hyprland-community/pyprland";
   };
 
@@ -29,6 +29,24 @@
       pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
     in
     {
+      devShells.${system} =
+        builtins.listToAttrs (
+          builtins.map
+            (name: {
+              inherit name;
+              value = import ./shells/${name}.nix { inherit pkgs; };
+            })
+            [
+              "js"
+              "go"
+            ]
+        );
+      # above is exactly the same as declaring manually the following set:
+      # {
+      # js = import ./shells/js.nix { inherit pkgs; };
+      # go = import ./shells/go.nix { inherit pkgs; };
+      # }
+
       nixosConfigurations = {
         davnix = lib.nixosSystem {
           inherit system;

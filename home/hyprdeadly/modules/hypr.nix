@@ -113,6 +113,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.default;
     systemd = {
       enable = true;
       variables = [ "--all" ];
@@ -299,6 +300,7 @@
       "$slurp" = "${pkgs.slurp}/bin/slurp";
       "$swappy" = "${pkgs.swappy}/bin/swappy";
       "$pngquant" = "${pkgs.pngquant}/bin/pngquant";
+      "$fd" = "${pkgs.fd}/bin/fd";
 
       bind = [
         "$mainMod, Q, exec, $terminalclient"
@@ -316,6 +318,10 @@
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
         "$mainMod, SPACE, exec, fuzzel"
         "$mainMod SHIFT, E, exec, bemoji"
+        # launch zsh dev shells declare in ~/.dotfiles/shells/ with fuzzel
+        ''$mainMod, D, exec, $terminal ${ pkgs.writeScript "launch-devshell" ''
+            nix develop /home/daviddeadly/.dotfiles/#"$(${pkgs.fd}/bin/fd . ~/.dotfiles/shells/ -e nix -x basename {/.} | fuzzel --dmenu)" -c zsh
+        ''}''
 
         '', Print, exec, $grim -g "$($slurp)" - | $swappy -f - -o - | $pngquant - | wl-copy''
         "$mainMod, Print, exec, $grim - | $swappy -f - -o - | $pngquant - | wl-copy"
