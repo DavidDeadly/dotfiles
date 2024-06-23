@@ -1,54 +1,43 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  programs.wofi = {
-    enable = true;
-    settings = {
-      width = 700;
-      allow_images = true;
+
+  home.packages = with pkgs; [
+    bemoji
+  ];
+
+  programs = {
+    fuzzel = {
+      enable = true;
+      settings = {
+        main = {
+          dpi-aware = "yes";
+          icon-theme = "candy-icons-master";
+          font = "CaskaydiaCove NFM:weight=bold:size=13";
+          line-height = 15;
+          fields = "name,generic,comment,categories,filename,keywords";
+          terminal = "foot -e";
+          prompt = ''"❯  "'';
+          layer = "overlay";
+        };
+
+        colors = {
+          background = "1e1e2edd";
+          text = "cdd6f4ff";
+          match = "f38ba8ff";
+          selection = "585b70ff";
+          selection-match = "f38ba8ff";
+          selection-text = "cdd6f4ff";
+          border = "b4befeff";
+        };
+
+        border = {
+          radius = 10;
+        };
+
+        dmenu = {
+          exit-immediately-if-empty = "yes";
+        };
+      };
     };
-
-    style = ''
-      * {
-        border-radius: 15px;
-      }
-
-      window {
-        font-size: 32px;
-        font-family: "Roboto mono Medium";
-        background-color: transparent;
-        color: #cdd6f4;
-      }
-
-      #input {
-        border: none;
-        background-color: rgba(17, 17, 27, .9);
-        color: #89b4fa;
-        margin-bottom: 15px;
-        padding: 10px;
-      }
-
-      #inner-box {
-        background-color: rgba(30, 30, 46, .9);
-      }
-
-      image {
-        margin-left: 10px;
-        margin-right: 10px;
-      }
-
-      #entry {
-        padding: 10px;
-      }
-
-      #entry:selected {
-        outline: none;
-        background-color: #94e2d5;
-        background: linear-gradient(90deg, #94e2d5, #cba6f7);
-      }
-
-      #text:selected {
-        color: #333333;
-      }
-    '';
   };
 }

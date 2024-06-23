@@ -124,7 +124,6 @@
       "$layout" = "master";
       "$terminal" = "foot";
       "$fileManager" = "thunar";
-      "$menu" = "wofi --show drun";
 
       monitor = [
         ",preferred,auto,auto"
@@ -315,7 +314,8 @@
         # Utilities
         "$mainMod, E, exec, $fileManager"
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
-        "$mainMod, SPACE, exec, wofi --show drun"
+        "$mainMod, SPACE, exec, fuzzel"
+        "$mainMod SHIFT, E, exec, bemoji"
 
         '', Print, exec, $grim -g "$($slurp)" - | $swappy -f - -o - | $pngquant - | wl-copy''
         "$mainMod, Print, exec, $grim - | $swappy -f - -o - | $pngquant - | wl-copy"

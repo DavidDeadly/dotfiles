@@ -51,6 +51,7 @@
         beautysh
 
         # C, C++
+        clang
         clang-tools
         cppcheck
 

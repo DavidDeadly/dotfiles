@@ -41,6 +41,7 @@
       name = "Thorium";
       genericName = "Web Browser";
       exec = "thorium";
+      icon = "chromium-browser";
       terminal = false;
       categories = [ "Application" "Network" "WebBrowser" ];
       mimeType = [ "text/html" "text/xml" ];
