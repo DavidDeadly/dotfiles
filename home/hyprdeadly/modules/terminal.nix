@@ -20,7 +20,6 @@
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
-
         PATH=$PATH:~/AppImages
       '';
       shellAliases = {
