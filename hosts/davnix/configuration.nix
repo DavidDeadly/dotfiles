@@ -28,18 +28,73 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  fonts = {
+    packages = with pkgs; [
+      dejavu_fonts
+      ipafont
+      kochi-substitute
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        monospace = [
+          "DejaVu Sans Mono"
+          "IPAGothic"
+        ];
+        sansSerif = [
+          "DejaVu Sans"
+          "IPAPGothic"
+        ];
+        serif = [
+          "DejaVu Serif"
+          "IPAPMincho"
+        ];
+      };
+    };
+  };
+
+
   time.timeZone = "America/Bogota";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "es_CO.UTF-8";
-    LC_IDENTIFICATION = "es_CO.UTF-8";
-    LC_MEASUREMENT = "es_CO.UTF-8";
-    LC_MONETARY = "es_CO.UTF-8";
-    LC_NAME = "es_CO.UTF-8";
-    LC_NUMERIC = "es_CO.UTF-8";
-    LC_PAPER = "es_CO.UTF-8";
-    LC_TELEPHONE = "es_CO.UTF-8";
-    LC_TIME = "es_CO.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5 = {
+        waylandFrontend = true;
+
+        addons = with pkgs; [
+          fcitx5-mozc
+          fcitx5-hangul
+          fcitx5-gtk
+        ];
+
+      };
+
+      ibus.engines = with pkgs.ibus-engines;
+        [ mozc hangul ];
+    };
+
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+
+      "es_CO.UTF-8/UTF-8"
+      "es_CO/ISO-8859-1"
+
+      "ja_JP.UTF-8/UTF-8"
+      "ko_KR.UTF-8/UTF-8"
+    ];
+
+    extraLocaleSettings = {
+      LC_ADDRESS = "es_CO.UTF-8";
+      LC_IDENTIFICATION = "es_CO.UTF-8";
+      LC_MEASUREMENT = "es_CO.UTF-8";
+      LC_MONETARY = "es_CO.UTF-8";
+      LC_NAME = "es_CO.UTF-8";
+      LC_NUMERIC = "es_CO.UTF-8";
+      LC_PAPER = "es_CO.UTF-8";
+      LC_TELEPHONE = "es_CO.UTF-8";
+      LC_TIME = "es_CO.UTF-8";
+    };
   };
 
   console.keyMap = "la-latin1";
@@ -133,6 +188,7 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    MOZC_IBUS_CANDIDATE_WINDOW = "ibus";
   };
 
   # $ nix search <package to search>
