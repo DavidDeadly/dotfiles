@@ -125,6 +125,7 @@
       "$layout" = "master";
       "$terminal" = "foot";
       "$fileManager" = "thunar";
+      "$browser" = "google-chrome";
 
       monitor = [
         ",preferred,auto,auto"
@@ -134,12 +135,13 @@
 
       workspace = [
         "name:Shell, monitor:eDP-1, default:true"
-        "name:Web, monitor:HDMI-A-1, on-created-empty:~/AppImages/thorium"
+        "name:Web, monitor:HDMI-A-1, on-created-empty:$browser-stable --enable-wayland-ime"
         # Add some style to the "exposed" workspace
         "special:exposed,gapsout:60,gapsin:30,bordersize:5,border:true,shadow:false"
       ];
 
       exec-once = [
+        "fcitx5 -d"
         "pypr"
         "mako"
         "ianny"
@@ -160,8 +162,8 @@
         "QT_QPA_PLATFORMTHEME,qt6ct "
         "ELECTRON_OZONE_PLATFORM_HINT,wayland"
         "XCURSOR_SIZE,38"
-        "XCURSOR_THEME,Catppuccin-Mocha-Sky-Cursors"
-        "HYPRCURSOR_THEME,Catppuccin-Mocha-Sky-Cursors"
+        "XCURSOR_THEME,catppuccin-mocha-sky-cursors"
+        "HYPRCURSOR_THEME,catppuccin-mocha-sky-cursors"
         "HYPRCURSOR_SIZE,38"
         "HYPR_DEFAULT_LAYOUT,$layout"
         "WALLPAPERS,${config.home.homeDirectory}/.dotfiles/images/wallpapers/"
@@ -248,9 +250,7 @@
       };
 
       master = {
-        new_is_master = false;
-        # maybe future versions 
-        # new_status = "slave";
+        new_status = "slave";
       };
 
       gestures = {
@@ -271,18 +271,14 @@
         # "move onscreen 1487 123, class:^()$, title:^()$"
 
         # vivaldi windowrules
-        # "opacity 0.9 0.8, class:^(vivaldi-stable)$"
         # "float, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
         # "opacity 1.0 override, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
         # "size 50% 70%, class:^(vivaldi-stable)$, title:^(Vivaldi Setting)(.*)$"
-        # "float, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
-        # "size 40% 50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
-        # "move onscreen cursor -50% -50%, class:^(vivaldi-stable)$, title:^(Developer Tools)(.*)$"
 
-        "opacity 0.9 0.8, class:^(Thorium-browser)$"
-        "float, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
-        "size 40% 50%, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
-        "move onscreen cursor -50% -50%, class:^(Thorium-browser)$, title:^(DevTools)(.*)$"
+        "opacity 0.9 0.8, class:^($browser)$"
+        "float, class:^($browser)$, title:^(DevTools)(.*)$"
+        "size 40% 50%, class:^($browser)$, title:^(DevTools)(.*)$"
+        "move onscreen cursor -50% -50%, class:^($browser)$, title:^(DevTools)(.*)$"
 
         "float, class:(copyq)"
         "move onscreen cursor -50% -50%,class:(copyq)"

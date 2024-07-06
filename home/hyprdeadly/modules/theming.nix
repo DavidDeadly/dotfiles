@@ -3,7 +3,7 @@
   home.pointerCursor = {
     gtk.enable = true;
 
-    name = "Catppuccin-Mocha-Sky-Cursors";
+    name = "catppuccin-mocha-sky-cursors";
     package = pkgs.catppuccin-cursors.mochaSky;
   };
 
