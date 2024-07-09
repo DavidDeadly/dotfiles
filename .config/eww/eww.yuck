@@ -90,7 +90,7 @@
   (button
     :valign "center"
     :class "group power-button"
-    :onclick "~/.config/hypr/scripts/wlogout_launcher.sh"
+    :onclick "./wlogout_launcher.sh"
     (label :text "")
   )
 )
