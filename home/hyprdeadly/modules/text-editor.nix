@@ -35,7 +35,8 @@
 
         # javascipt
         nodePackages.prettier
-        nodePackages.eslint
+        # nodePackages.eslint
+        eslint_d
         nodePackages.typescript-language-server
         nodePackages.volar
 
