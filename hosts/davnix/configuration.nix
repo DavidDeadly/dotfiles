@@ -203,7 +203,7 @@
 
     # langs
     python3
-    #
+
     # deps
     socat # socket utility
     libnotify # notifications

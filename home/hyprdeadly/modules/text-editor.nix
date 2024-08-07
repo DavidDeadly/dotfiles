@@ -33,11 +33,13 @@
         nixpkgs-fmt
         pkgs-unstable.nil
 
-        # javascipt
+        # web
+        eslint_d
+        tailwindcss-language-server
         nodePackages.prettier
         # nodePackages.eslint
-        eslint_d
         nodePackages.typescript-language-server
+        nodePackages.vscode-html-languageserver-bin
         nodePackages.volar
 
         # Go
