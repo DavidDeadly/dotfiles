@@ -20,6 +20,8 @@
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
+        eval "$(fzf --zsh)"
+
         PATH=$PATH:~/AppImages
       '';
       shellAliases = {

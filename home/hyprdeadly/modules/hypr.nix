@@ -113,7 +113,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = pkgs-unstable.hyprland;
+    package = pkgs.hyprland;
     systemd = {
       enable = true;
       variables = [ "--all" ];
@@ -405,6 +405,8 @@
 
       # will reset the submap
       submap = reset
+
+      # disable_logs = false;
     '';
   };
 }
