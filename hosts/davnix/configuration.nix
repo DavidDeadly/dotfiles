@@ -15,8 +15,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "davnix";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "davnix";
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    networkmanager.enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -133,6 +136,15 @@
 
   services = {
     thermald.enable = true;
+
+    # will be available on future nixos versions
+    # cloudflare-warp.enable = true;
+
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      dnsovertls = "true";
+    };
 
     tlp = {
       enable = true;

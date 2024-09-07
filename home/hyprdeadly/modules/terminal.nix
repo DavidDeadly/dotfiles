@@ -14,6 +14,21 @@
       config.theme = "OneHalfDark";
     };
 
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+      git = true;
+      icons = true;
+      extraOptions = [
+        "--long"
+        "--color=always"
+        "--no-time"
+        "--no-user"
+        "--no-filesize"
+        "--no-permissions"
+      ];
+    };
+
     zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -25,13 +40,13 @@
         PATH=$PATH:~/AppImages
       '';
       shellAliases = {
-        ll = "ls -l";
         ".." = "cd ..";
 
         vi = "nvim";
         vim = "nvim";
         vimdiff = "nvim -d";
-
+        cat = "bat --theme=Dracula";
+        ls = "eza";
         # dotf = "git --git-dir=${HOME}/Dev/dotfiles --work-tree=${HOME}";
       };
 
