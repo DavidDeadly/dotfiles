@@ -19,7 +19,7 @@
     # $ nix search <package to search>
     packages = with pkgs; [
       ianny # breaks utility
-      google-chrome # browser
+      brave # browser
       neofetch # system stats
       playerctl # media player
       pavucontrol # audio player

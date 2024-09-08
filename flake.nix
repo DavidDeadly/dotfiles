@@ -20,8 +20,8 @@
     let
       system = "x86_64-linux";
       inherit (nixpkgs) lib;
-      pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-      pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+      pkgs = import nixpkgs { inherit system; };
+      pkgs-unstable = import nixpkgs-unstable { inherit system; };
     in
     {
       devShells.${system} =
