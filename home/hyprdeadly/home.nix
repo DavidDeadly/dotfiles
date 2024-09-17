@@ -28,9 +28,6 @@
       brightnessctl # brightness service
       networkmanagerapplet # network indicator
       xfce.thunar # file manager
-      jq # json parser
-      fzf # fuzzy finder
-      rm-improved # better rm
 
       (nerdfonts.override {
         fonts = [ "CascadiaCode" ];

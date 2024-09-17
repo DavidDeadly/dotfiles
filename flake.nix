@@ -20,7 +20,11 @@
     let
       system = "x86_64-linux";
       inherit (nixpkgs) lib;
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system; config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "obsidian"
+      ];
+      };
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
     in
     {
