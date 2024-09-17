@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 spaces (){
-  hyprctl workspaces -j | jq -Mc 'map({name: .name, icon: (if .name == "Shell" then "" elif .name == "Web" then "" else "󰎔" end), windows: .windows})'
+    hyprctl workspaces -j | jq -Mc 'map({name: (if .id == 1 then "Shell" elif .id == 2 then "Web" else .name end), icon: (if .id == 1 then "" elif .id == 2 then "" else "󰎔" end), windows: .windows})'
 }
 
 spaces
 socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
-	spaces
+    spaces
 done

@@ -134,8 +134,8 @@
       ];
 
       workspace = [
-        "name:Shell, monitor:eDP-1, default:true"
-        "name:Web, monitor:HDMI-A-1, on-created-empty:$browser --enable-wayland-ime"
+        "1, monitor:eDP-1, default:true"
+        "2, monitor:HDMI-A-1, on-created-empty:$browser --enable-wayland-ime"
         # Add some style to the "exposed" workspace
         "special:exposed,gapsout:60,gapsin:30,bordersize:5,border:true,shadow:false"
       ];
@@ -352,20 +352,20 @@
         "$mainMod SHIFT, J, movewindow, d"
 
         # Switch workspaces with mainMod + workspace
-        "$mainMod, 1, workspace, name:Shell"
-        "$mainMod, 2, workspace, name:Web"
+        "$mainMod, 1, workspace, 1"
+        "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
         "$mainMod, 4, workspace, 4"
 
         # Move window to workspace
-        "$mainMod SHIFT, 1, movetoworkspace, name:Shell"
-        "$mainMod SHIFT, 2, movetoworkspace, name:Web"
+        "$mainMod SHIFT, 1, movetoworkspace, 1"
+        "$mainMod SHIFT, 2, movetoworkspace, 2"
         "$mainMod SHIFT, 3, movetoworkspace, 3"
         "$mainMod SHIFT, 4, movetoworkspace, 4"
 
         # Move window to workspace without switching
-        "$mainMod CTRL SHIFT, 1, movetoworkspacesilent, name:Shell"
-        "$mainMod CTRL SHIFT, 2, movetoworkspacesilent, name:Web"
+        "$mainMod CTRL SHIFT, 1, movetoworkspacesilent, 1"
+        "$mainMod CTRL SHIFT, 2, movetoworkspacesilent, 2"
         "$mainMod CTRL SHIFT, 3, movetoworkspacesilent, 3"
         "$mainMod CTRL SHIFT, 4, movetoworkspacesilent, 4"
 
