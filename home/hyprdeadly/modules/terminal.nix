@@ -98,7 +98,6 @@
       '';
       shellAliases = {
         ".." = "cd ..";
-
         vi = "nvim";
         vim = "nvim";
         vimdiff = "nvim -d";
