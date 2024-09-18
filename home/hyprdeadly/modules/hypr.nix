@@ -152,7 +152,6 @@
         "eww open bar"
         "$scripts/toggle_layout.sh true"
         "/usr/lib/xfce-polkit/xfce-polkit"
-        "memex.AppImage"
       ];
 
       xwayland = {
