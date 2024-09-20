@@ -147,9 +147,10 @@
         "ianny"
         "foot --server"
         "swww-daemon"
+        "syncthing"
+        "eww open bar"
         "nm-applet --indicator"
         "copyq --start-server"
-        "eww open bar"
         "$scripts/toggle_layout.sh true"
         "/usr/lib/xfce-polkit/xfce-polkit"
       ];

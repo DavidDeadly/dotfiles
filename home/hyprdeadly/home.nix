@@ -20,6 +20,8 @@
     packages = with pkgs; [
       ianny # breaks utility
       brave # browser
+      logseq # note-taking
+      syncthing # sync files
       neofetch # system stats
       playerctl # media player
       pavucontrol # audio player

@@ -21,9 +21,10 @@
       system = "x86_64-linux";
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs {
-        inherit system; config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "obsidian"
-      ];
+        inherit system;
+        config.permittedInsecurePackages = [
+          "electron-27.3.11"
+        ];
       };
       pkgs-unstable = import nixpkgs-unstable { inherit system; };
     in
