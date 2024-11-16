@@ -11,6 +11,7 @@
     fzf # fuzzy finder
     rm-improved # better rm
     delta # git diff
+    git-lfs # git large files
   ];
 
   programs = {

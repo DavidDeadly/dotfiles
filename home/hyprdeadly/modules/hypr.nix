@@ -138,12 +138,14 @@
         "2, monitor:HDMI-A-1, on-created-empty:$browser --enable-wayland-ime"
         # Add some style to the "exposed" workspace
         "special:exposed,gapsout:60,gapsin:30,bordersize:5,border:true,shadow:false"
+        "special:gromit, gapsin:0, gapsout:0, on-created-empty: $gromit-mpx -a"
       ];
 
       exec-once = [
         "fcitx5 -d"
         "pypr"
         "mako"
+        "~/AppImages/stayfree"
         "ianny"
         "foot --server"
         "swww-daemon"
@@ -281,10 +283,15 @@
         "move onscreen cursor -50% -50%,class:(gtk-tray)"
         "size 5% 5%, class:(gtk-tray)"
         "dimaround, class:(gtk-tray)"
+
+        "opacity 1 override 1 override, initialTitle:^(gromit-mpx)$"
+        "noblur, initialTitle:^(gromit-mpx)$"
+        "noshadow, initialTitle:^(gromit-mpx)$"
       ];
 
       "$woomer" = "${inputs.woomer.packages.${pkgs.system}.default}/bin/woomer";
       "$grim" = "${pkgs.grim}/bin/grim";
+      "$gromit-mpx" = "${pkgs.gromit-mpx}/bin/gromit-mpx";
       "$slurp" = "${pkgs.slurp}/bin/slurp";
       "$swappy" = "${pkgs.swappy}/bin/swappy";
       "$pngquant" = "${pkgs.pngquant}/bin/pngquant";
@@ -306,6 +313,10 @@
         "$mainMod, S, exec, ~/sources/stray/target/debug/gtk-tray"
         "$mainMod, SPACE, exec, fuzzel"
         "$mainMod SHIFT, E, exec, bemoji"
+        # gromit
+        "$mainMod SHIFT, R, exec, $gromit-mpx --clear"
+        "$mainMod CONTROL, Z, exec, $gromit-mpx --undo"
+        "$mainMod SHIFT, Z, exec, $gromit-mpx --redo"
         # launch zsh dev shells declare in ~/.dotfiles/shells/ with fuzzel
         ''$mainMod, D, exec, $terminal ${ pkgs.writeScript "launch-devshell" ''
             nix develop /home/daviddeadly/.dotfiles/#"$(${pkgs.fd}/bin/fd . ~/.dotfiles/shells/ -e nix -x basename {/.} | fuzzel --dmenu)" -c zsh
@@ -317,7 +328,7 @@
         "$mainMod, V, exec, copyq toggle"
         "$mainMod, C, exec, hyprpicker | wl-copy"
 
-        "$mainMod CTRL, Z, exec, $woomer"
+        "$mainMod ALT, Z, exec, $woomer"
         "$mainMod ALT, SPACE, exec, swww img $($scripts/select_wallpaper.sh)"
 
         #pypr plugins binds
@@ -356,6 +367,7 @@
         "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
         "$mainMod, 4, workspace, 4"
+        "$mainMod SHIFT, D, togglespecialworkspace, gromit"
 
         # Move window to workspace
         "$mainMod SHIFT, 1, movetoworkspace, 1"

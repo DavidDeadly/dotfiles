@@ -4,7 +4,7 @@ pkgs.stdenvNoCC.mkDerivation rec {
 
   src = pkgs.fetchurl {
     url = "https://github.com/EliverLara/candy-icons/archive/refs/heads/master.zip";
-    sha256 = "1xhm6csrq86k4mxmpjddlyp3q353rg0w4scxhx49fx1yawlaqlnq";
+    sha256 = "06vhgkh1aihp04sdqd3qm5447d9pzmxmjy0mg8nk3xsqs260z4xk";
   };
 
   nativeBuildInputs = [ pkgs.gtk3 ];

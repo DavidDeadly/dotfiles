@@ -22,8 +22,9 @@
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs {
         inherit system;
-        config.permittedInsecurePackages = [
-          "electron-27.3.11"
+        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+          "obsidian"
+          "aseprite"
         ];
       };
       pkgs-unstable = import nixpkgs-unstable { inherit system; };

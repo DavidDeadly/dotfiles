@@ -108,6 +108,8 @@
     pulseaudio.enable = false;
     opengl.enable = true;
     nvidia.modesetting.enable = true;
+    opentabletdriver.enable = true;
+    opentabletdriver.daemon.enable = true;
   };
 
   programs = {
