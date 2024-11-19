@@ -38,7 +38,7 @@
     ];
   };
 
-  xdg.configFile.".config/io.github.zefr0x.ianny/config.toml".text = ''
+  xdg.configFile."io.github.zefr0x.ianny/config.toml".text = ''
     [timer]
     idle_timeout = 300
     short_break_timeout = 5400
