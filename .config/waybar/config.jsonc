@@ -9,10 +9,11 @@
     "memory",
     "custom/temperature",
     "cpu",
-    "tray",
+    "tray"
   ],
-  "modules-center": ["hyprland/window"],
+  "modules-center": ["mpris"],
   "modules-right": [
+    "hyprland/submap",
     "network",
     "battery",
     "pulseaudio",
@@ -22,6 +23,17 @@
     "custom/reboot",
     "custom/power",
   ],
+  "mpris": {
+    "format": " <span color='#00FFFF'>{player_icon}</span>  {title} - {artist} ",
+    "format-paused": " <span color='#FFD700'>{status_icon}</span> {title} - {artist} ",
+    "player-icons": {
+      "default": "",
+      "chromium": ""
+    },
+    "status-icons": {
+      "paused": ""
+    },
+  },
   "user": {
     "format": " {work_H}:{work_M} <span color='#258e68'></span> ",
     "interval": 60,
@@ -35,10 +47,12 @@
     "max": 100,
     "orientation": "horizontal",
     "device": "intel_backlight"
-},
-  "hyprland/window": {
-    "format": "",
-    "icon": true,
+  },
+  "hyprland/submap": {
+    "format": " {} ",
+    "default-submap": "Normal",
+    "always-on": true,
+    "max-length": 8
   },
   "hyprland/workspaces": {
     "disable-scroll": false,
@@ -54,10 +68,10 @@
     }
   },
   "custom/lock": {
-  "format": "<span color='#00FFFF'>  </span>",
-  "on-click": "hyprlock",
-  "tooltip": true,
-  "tooltip-format": "锁屏"
+    "format": "<span color='#00FFFF'>  </span>",
+    "on-click": "hyprlock",
+    "tooltip": true,
+    "tooltip-format": "锁屏"
   },
   "custom/reboot": {
     "format": "<span color='#FFD700'>  </span>",
@@ -87,7 +101,7 @@
     },
     "format": "<span color='#28CD41'> {icon} </span>{capacity}% ",
     "format-charging": " 󱐋 {capacity}%",
-	  "interval": 1,
+    "interval": 1,
     "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
     "tooltip": true
   },

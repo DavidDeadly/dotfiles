@@ -15,7 +15,8 @@
 
 /* 所有模块统一风格 */
 #workspaces,
-#window,
+#submap,
+#mpris,
 #user,
 #tray {
   /*background-color: rgba(29,31,46, 0.95);*/
@@ -98,7 +99,7 @@
 #custom-reboot:hover,
 #custom-power:hover,
 /*#workspaces:hover,*/
-#window:hover {
+#mpris:hover {
   background-color: rgba(70, 75, 90, 0.9);
 }
 
@@ -129,7 +130,16 @@
   font-weight: bold;
 }
 
-#window {
+#mpris {
   font-weight: 500;
   font-style: italic;
+}
+
+#submap.Normal {
+  background-color: rgba(15, 27, 53, 0.9);
+}
+
+#submap.Resize {
+  background-color: #FFD700;
+  color: #000;
 }
