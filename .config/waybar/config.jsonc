@@ -62,8 +62,9 @@
     "show-special": true,
     "special-visible-only": true,
     "format-icons": {
-      "1": "󰣇",
-      "2": "",
+      "Shell": "󰣇",
+      "Web": "",
+      "Music": ""
       "default": ""
     }
   },
