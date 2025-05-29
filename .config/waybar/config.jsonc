@@ -26,6 +26,7 @@
   "mpris": {
     "format": " <span color='#00FFFF'>{player_icon}</span>  {title} - {artist} ",
     "format-paused": " <span color='#FFD700'>{status_icon}</span> {title} - {artist} ",
+    "max-length": 40,
     "player-icons": {
       "default": "",
       "chromium": ""
