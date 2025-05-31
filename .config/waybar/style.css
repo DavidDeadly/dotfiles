@@ -16,7 +16,7 @@
 #mpris,
 #user,
 #tray {
-  background-color: rgba(29, 31, 46, 0.95);
+  background-color: rgba(15, 27, 53, 0.9);
   padding: 4px 6px;
   margin-top: 6px;
   margin-left: 6px;
@@ -119,4 +119,19 @@
 #submap.Resize {
   background-color: #FFD700;
   color: #000;
+}
+
+#battery.discharging.critical {
+  background-color: #FF4040;
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }

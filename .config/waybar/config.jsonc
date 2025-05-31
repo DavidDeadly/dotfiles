@@ -96,15 +96,17 @@
     "interval": 1
   },
   "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "<span color='#28CD41'> {icon} </span>{capacity}% ",
-    "format-charging": " 󱐋 {capacity}%",
     "interval": 1,
+    "tooltip": true,
+    "format-charging": " 󱐋 {capacity}%",
     "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
-    "tooltip": true
+    "format": "<span color='#00ff00'> {icon} </span>{capacity}% ",
+    "format-warning": "<span color='#ffa500'>{icon}</span> {capacity}%",
+    "format-charging": "<span color='#00FFFF'>󱐋 </span>{capacity}%",
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
   },
   "pulseaudio": {
     "format": "<span color='#00FF7F'>{icon}</span> {volume}% ",
