@@ -3,7 +3,7 @@
 while true; do
     bat_lvl=$(cat /sys/class/power_supply/BAT1/capacity)
 
-    if [ "$bat_lvl" -gt 15 ]; then
+    if [ "$bat_lvl" -gt 10 ]; then
         sleep 120
         continue
     fi
