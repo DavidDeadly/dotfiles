@@ -1,0 +1,11 @@
+[timer]
+ignore_idle_inhibitors = false
+idle_timeout = 240
+short_break_timeout = 5400
+long_break_timeout = 10800
+short_break_duration = 120
+long_break_duration = 240
+
+[notification]
+show_progress_bar = true
+minimum_update_delay = 1
